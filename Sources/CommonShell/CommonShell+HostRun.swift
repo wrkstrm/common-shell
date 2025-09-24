@@ -75,7 +75,7 @@ extension CommonShell {
     }
   }
 
-  private func makeInvocation(
+  func makeInvocation(
     arguments: [String],
     environment: EnvironmentModel?,
     timeout: Duration?,
@@ -101,7 +101,7 @@ extension CommonShell {
     )
   }
 
-  private func resolveHost(_ invocation: Invocation) -> Invocation {
+  func resolveHost(_ invocation: Invocation) -> Invocation {
     guard let hostKind = invocation.hostKind else { return invocation }
     let host = hostKind.makeHost()
     return host.resolve(invocation: invocation)
