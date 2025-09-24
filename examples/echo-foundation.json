@@ -1,0 +1,15 @@
+{
+  "backend": "foundation",
+  "logOptions": {
+    "exposure": "verbose",
+    "maxStdoutLines": 200,
+    "showHeadTail": false
+  },
+  "executable": {
+    "wrapper": {"type": "direct"},
+    "executable": "/bin/echo",
+    "options": ["hello"],
+    "arguments": ["world"],
+    "workingDirectory": "."
+  }
+}

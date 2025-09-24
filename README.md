@@ -1,0 +1,82 @@
+# CommonShell – process execution wrapper
+
+```
+               ┌──────────────────▶ │  Invocation        │  What to run (ExecutableRef)
+               │
+CommonShell ──▶├──────────────────▶ │  Execution Host    │  How to wrap the tool
+               │
+CommonProcess ─├──────────────────▶ │  Runner (route)    │  How to execute
+               │
+Instrumentation├──────────────────▶ │  Telemetry         │  Logging/metrics exposure
+```
+
+- `ExecutableReference` stays the source-of-truth for identity: `.name("git")`, `.path("/usr/bin/git")`, `.none` (argv-only).
+- Hosts describe how to wrap the executable before dispatching to CommonProcess:
+  - `.direct`
+  - `.shell(options:)`
+  - `.env(options:)`
+  - `.npm(options:)`
+  - `.npx(options:)`
+- Runners (`ProcessRunnerKind`) handle the actual execution surface (Subprocess/Foundation/TSCBasic/Native).
+- Instrumentation and metrics tag invocations automatically (host kind propagates via `ProcessLogOptions.tags`).
+
+## Invocation-first model
+
+```swift
+public struct Invocation: Codable, Sendable {
+  public var executable: Executable
+  public var args: [String]
+  public var env: EnvironmentModel?
+  public var workingDirectory: String?
+  public var logOptions: ProcessLogOptions = .init()
+  public var requestId: String = UUID().uuidString
+  public var instrumentationKeys: [InstrumentationKey] = []
+  public var hostKind: ExecutionHostKind? = nil
+  public var runnerKind: ProcessRunnerKind? = nil
+  public var timeout: Duration? = nil
+  public var instrumentation: ProcessInstrumentation? = nil // runtime-only
+}
+```
+
+- `.name("git")` selects PATH lookup → typically `hostKind = .env`.
+- `.path("/usr/bin/git")` → `hostKind = .direct`.
+- Wrapper helpers (e.g. `CommonShell.runShell`, `runEnv`, `runDirect`, `runNpxCommand`) set `hostKind` for you.
+
+### Instrumentation
+
+- Built-in keys: `.noop`, `.metrics` (via `ProcessMetricsRecorder`).
+- `ProcessLogOptions.tags["executionHost"]` records the host label automatically.
+
+## Running commands
+
+```swift
+var shell = CommonShell(executable: .name("git"))
+shell.hostKind = .env(options: [])
+let status = try await shell.execute(arguments: ["status"], runnerKind: .auto)
+```
+
+Convenience wrappers:
+
+- `runDirect` – sets `hostKind = .direct`
+- `runShell` – sets `hostKind = .shell(options:)`
+- `runEnv` – sets `hostKind = .env(options:)`
+- `runNpxCommand` – resolves node/npm CLI and sets `hostKind = .npx(options:)`
+- `runForInterval` – benchmarks a host × runner combination
+
+All `run` APIs accept an optional `timeout:` parameter (`Duration`). When supplied, CommonShell cooperatively cancels the underlying runner once the timeout elapses and throws a `ProcessError` with `timedOut = true`.
+
+Low-level entry point:
+
+- `run(host:executable:arguments:runnerKind:)` — explicitly supply the host transform and executable identity.
+
+## Route planning & benchmarking
+
+- `ShellRouteKind` still enumerates runners (`.auto`, `.native`, `.subprocess(kind)`).
+- Bench helpers (`BenchRoutes`, `BenchSupport`) now operate over `(host: ExecutionHostKind, executable: Executable, arguments: [String]) × [ShellRouteKind]`.
+- CSV/JSON/Table outputs include both host label (`wrapper`) and runner route (`route`).
+
+## Relationship to CommonProcess
+
+- Hosts produce new `Invocation` instances with transformed `Executable`+args.
+- CommonProcess runners execute any invocation regardless of host choice.
+- Instrumentation/hardware metrics are shared across hosts and routes.

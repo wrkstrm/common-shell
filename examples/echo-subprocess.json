@@ -1,0 +1,10 @@
+{
+  "backend": "subprocess",
+  "logOptions": {"exposure": "verbose"},
+  "executable": {
+    "wrapper": {"type": "direct"},
+    "executable": "/bin/echo",
+    "arguments": ["subprocess"],
+    "workingDirectory": "."
+  }
+}

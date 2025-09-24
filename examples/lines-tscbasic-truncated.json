@@ -1,0 +1,15 @@
+{
+  "backend": "tscbasic",
+  "logOptions": {
+    "exposure": "verbose",
+    "maxStdoutLines": 25,
+    "showHeadTail": true,
+    "headLines": 10,
+    "tailLines": 5
+  },
+  "executable": {
+    "wrapper": {"type": "shell"},
+    "arguments": ["for i in $(seq 1 100); do echo line $i; done"],
+    "workingDirectory": "."
+  }
+}
