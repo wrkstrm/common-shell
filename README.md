@@ -80,3 +80,8 @@ Low-level entry point:
 - Hosts produce new `Invocation` instances with transformed `Executable`+args.
 - CommonProcess runners execute any invocation regardless of host choice.
 - Instrumentation/hardware metrics are shared across hosts and routes.
+
+## Docs
+
+- API guides live under `Sources/CommonShell/Documentation.docc/`.
+- Comparison for CLI authors: `CommonShell-Comparison-TuistCommand.md` (when to use CommonShell vs Tuist Command).
