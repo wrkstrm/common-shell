@@ -99,9 +99,9 @@ let res = try await shell.runForInterval(
 print(res.iterations, res.averageMS)
 ```
 
-## CLI: Invocation JSON + flags
+## CLI: CommandInvocation JSON + flags
 
-Use the `common-shell-cli` to execute a codable `Invocation` from JSON. The CLI accepts:
+Use the `common-shell-cli` to execute a codable `CommandInvocation` from JSON. The CLI accepts:
 
 - ``--runner-kind`` to choose `auto|subprocess|foundation|tscbasic`
 - ``--instrumentation-key`` to select an instrumentation sink (e.g., `noop`)

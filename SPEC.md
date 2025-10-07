@@ -18,7 +18,7 @@
 - `struct Executable`
   - `ref: ExecutableReference` (identity)
   - `options: [String]`, `arguments: [String]` (prepend defaults)
-- `struct Invocation` (Codable)
+- `struct CommandInvocation` (Codable)
   - `executable: Executable`
   - `args: [String]` (call‑site)
   - `workingDirectory: String?`, `env: EnvironmentModel?`
@@ -54,7 +54,7 @@
 - Use `ProcessInstrumentation` for hooks around execution.
   - `willStart(command: String, arguments: [String], workingDirectory: String, runnerName: String, requestId: String, startUptimeNs: UInt64)`
 - `didFinish(command: String, arguments: [String], workingDirectory: String, runnerName: String, requestId: String, status: ProcessExitStatus, processIdentifier: String?, startUptimeNs: UInt64, endUptimeNs: UInt64, stdoutPreview: String?, stderrPreview: String?)`
-- CommonShell forwards to `Invocation.instrumentation` (injected from `instrumentationKey`) and includes monotonic timestamps.
+- CommonShell forwards to `CommandInvocation.instrumentation` (injected from `instrumentationKey`) and includes monotonic timestamps.
 - Runners emit WrkstrmLog entries:
   - DEBUG: structured start block
   - INFO: one‑line summary (status, duration, cwd, cmd)
@@ -79,7 +79,7 @@
   - Runner selection (lower-level): `let out = try await CommonProcessRunners.make(kind: .auto).makeRunner(for: invocation).run()`.
 - Migration:
   - Use `Executable.name(_:)` / `Executable.path(_:)` for identity.
-  - Construct `Invocation(executable: Executable, args: ...)` and let runners resolve.
+  - Construct `CommandInvocation(executable: Executable, args: ...)` and let runners resolve.
 
 ### Wrappers and PATH resolution
 

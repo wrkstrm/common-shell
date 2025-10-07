@@ -6,7 +6,7 @@ extension CommonShell {
   /// Buffered launch returning `ProcessOutput`.
   public func launch(options extra: [String]) async throws -> ProcessOutput {
     let opts = makeProcessOptions()
-    let inv = Invocation(
+    let inv = CommandInvocation(
       executable: executable,
       args: extra,
       env: nil,

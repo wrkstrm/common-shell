@@ -3,7 +3,7 @@ import Foundation
 
 protocol ExecutionHost: Sendable {
   var kind: ExecutionHostKind { get }
-  func resolve(invocation: Invocation) -> Invocation
+  func resolve(invocation: CommandInvocation) -> CommandInvocation
 }
 
 extension ExecutionHostKind {
@@ -29,7 +29,7 @@ extension ExecutionHostKind {
 
 private struct DirectHost: ExecutionHost {
   let kind: ExecutionHostKind = .direct
-  func resolve(invocation: Invocation) -> Invocation {
+  func resolve(invocation: CommandInvocation) -> CommandInvocation {
     var out = invocation
     out.hostKind = nil
     return out
@@ -40,7 +40,7 @@ private struct ShellHost: ExecutionHost {
   let options: [String]
   var kind: ExecutionHostKind { .shell(options: options) }
 
-  func resolve(invocation: Invocation) -> Invocation {
+  func resolve(invocation: CommandInvocation) -> CommandInvocation {
     var exec = invocation.executable
     exec.options = options
     if exec.arguments.isEmpty { exec.arguments = ["-c"] }
@@ -55,7 +55,7 @@ private struct EnvHost: ExecutionHost {
   let options: [String]
   var kind: ExecutionHostKind { .env(options: options) }
 
-  func resolve(invocation: Invocation) -> Invocation {
+  func resolve(invocation: CommandInvocation) -> CommandInvocation {
     let target = invocation.executable
     let token: String =
       switch target.ref {
@@ -84,7 +84,7 @@ private struct NpmHost: ExecutionHost {
   let options: [String]
   var kind: ExecutionHostKind { .npm(options: options) }
 
-  func resolve(invocation: Invocation) -> Invocation {
+  func resolve(invocation: CommandInvocation) -> CommandInvocation {
     var exec = Executable.path("/usr/bin/env")
     exec.options = options
     exec.arguments = ["npm"]
@@ -99,7 +99,7 @@ private struct NpxHost: ExecutionHost {
   let options: [String]
   var kind: ExecutionHostKind { .npx(options: options) }
 
-  func resolve(invocation: Invocation) -> Invocation {
+  func resolve(invocation: CommandInvocation) -> CommandInvocation {
     if let nodeAbs = Executable.resolveAbsolute("node"),
       let npxCli = CommonShell.resolveNpxCliAbsolute()
     {
