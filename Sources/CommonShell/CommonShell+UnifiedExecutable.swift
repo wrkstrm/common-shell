@@ -1,5 +1,5 @@
 import CommonProcess
-import CommonProcessRunners
+import CommonProcessExecutionKit
 import Foundation
 
 // MARK: - Unified Executable adoption helpers

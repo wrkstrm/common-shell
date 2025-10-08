@@ -1,5 +1,5 @@
 import CommonProcess
-import CommonProcessRunners
+import CommonProcessExecutionKit
 import Foundation
 
 /// Minimal CommonShell adapter built directly on CommonProcess.

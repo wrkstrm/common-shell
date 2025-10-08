@@ -1,5 +1,5 @@
 import CommonProcess
-import CommonProcessRunners
+import CommonProcessExecutionKit
 import Foundation
 
 /// Normalized representation of a CommonShell invocation decoded from JSON.

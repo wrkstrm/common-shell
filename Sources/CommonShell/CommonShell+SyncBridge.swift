@@ -1,5 +1,5 @@
 import CommonProcess
-import CommonProcessRunners
+import CommonProcessExecutionKit
 import Foundation
 
 extension CommonShell {
@@ -14,8 +14,6 @@ extension CommonShell {
       logOptions: opts,
       instrumentation: instrumentation,
     )
-    let runnerFactory = CommonProcessRunners.make(kind: .auto)
-    let runner = runnerFactory.makeRunner(for: inv)
-    return try await runner.run()
+    return try await inv.run()
   }
 }

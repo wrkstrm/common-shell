@@ -1,5 +1,5 @@
 import CommonProcess
-import CommonProcessRunners
+import CommonProcessExecutionKit
 import Foundation
 
 extension CommonShell {
@@ -15,7 +15,7 @@ extension CommonShell {
     var invocation = makeInvocation(arguments: arguments, environment: envModel, timeout: timeout)
     invocation.runnerKind = runnerKind
     let resolved = resolveHost(invocation)
-    return CommonProcessRunners.stream(invocation: resolved)
+    return resolved.stream(preferredKind: runnerKind)
   }
 
   /// Stream coalesced text lines decoded from stdout and stderr.

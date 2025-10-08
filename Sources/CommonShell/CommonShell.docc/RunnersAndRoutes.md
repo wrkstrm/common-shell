@@ -15,7 +15,7 @@ Pick explicitly on any CommonShell `run`/`runForInterval` via `runnerKind:`:
 
 ```swift
 import CommonShell
-import CommonProcessRunners
+import CommonProcessExecutionKit
 
 let sh = CommonShell(executable: Executable.path("/usr/bin/env"))
 let out = try await sh.run(

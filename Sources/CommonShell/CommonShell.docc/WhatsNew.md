@@ -12,7 +12,7 @@ A quick note on the simplified CommonShell API.
 
 ```swift
 import CommonShell
-import CommonProcessRunners
+import CommonProcessExecutionKit
 
 let sh = CommonShell(executable: .path("/usr/bin/env"))
 

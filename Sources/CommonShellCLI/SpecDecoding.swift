@@ -1,6 +1,6 @@
 import ArgumentParser
 import CommonProcess
-import CommonProcessRunners
+import CommonProcessExecutionKit
 import Foundation
 
 /// Decode any supported shell spec representation.

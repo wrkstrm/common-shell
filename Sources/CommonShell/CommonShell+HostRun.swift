@@ -1,5 +1,5 @@
 import CommonProcess
-import CommonProcessRunners
+import CommonProcessExecutionKit
 import Foundation
 import WrkstrmLog
 
@@ -61,8 +61,7 @@ extension CommonShell {
       arguments: arguments, environment: environment, timeout: timeout)
     invocation.runnerKind = runnerKind
     let resolved = resolveHost(invocation)
-    let runner = CommonProcessRunners.make(kind: runnerKind).makeRunner(for: resolved)
-    let output = try await runner.runWithTimeout(invocation: resolved)
+    let output = try await resolved.run(preferredKind: runnerKind)
     switch output.exitStatus {
     case .exited(code: 0):
       return output.utf8Output()

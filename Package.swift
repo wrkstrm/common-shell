@@ -56,7 +56,7 @@ let package = Package(
       name: "CommonShell",
       dependencies: [
         .product(name: "CommonProcess", package: "CommonProcess"),
-        .product(name: "CommonProcessRunners", package: "CommonProcess"),
+        .product(name: "CommonProcessExecutionKit", package: "CommonProcess"),
         .product(name: "WrkstrmLog", package: "WrkstrmLog"),
       ],
       path: "Sources/CommonShell",
@@ -65,7 +65,7 @@ let package = Package(
       name: "CommonShellArguments",
       dependencies: [
         "CommonShell",
-        .product(name: "CommonProcessRunners", package: "CommonProcess"),
+        .product(name: "CommonProcessExecutionKit", package: "CommonProcess"),
         .product(name: "WrkstrmLog", package: "WrkstrmLog"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
@@ -76,7 +76,7 @@ let package = Package(
       dependencies: [
         "CommonShell",
         "CommonShellBenchSupport",
-        .product(name: "CommonProcessRunners", package: "CommonProcess"),
+        .product(name: "CommonProcessExecutionKit", package: "CommonProcess"),
         .product(name: "WrkstrmLog", package: "WrkstrmLog"),
       ],
       path: "Tests/CommonShellTests",
@@ -100,7 +100,7 @@ let package = Package(
       dependencies: [
         "CommonShell",
         "CommonShellBenchSupport",
-        .product(name: "CommonProcessRunners", package: "CommonProcess"),
+        .product(name: "CommonProcessExecutionKit", package: "CommonProcess"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
       path: "Sources/CommonShellCLI",

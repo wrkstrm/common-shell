@@ -1,5 +1,5 @@
 import CommonProcess
-import CommonProcessRunners
+import CommonProcessExecutionKit
 import Foundation
 
 /// Route hint for CommonShell deciding how to execute a run.
@@ -19,7 +19,7 @@ public struct ShellRoutePlan: Sendable, Equatable {
   public init(
     includeAuto: Bool = true,
     includeNative: Bool = true,
-    runners: [ProcessRunnerKind] = CommonProcessRunners.supportedKinds(),
+    runners: [ProcessRunnerKind] = RunnerControllerFactory.supportedKinds(),
   ) {
     self.includeAuto = includeAuto
     self.includeNative = includeNative

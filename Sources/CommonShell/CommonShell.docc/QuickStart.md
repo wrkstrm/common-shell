@@ -5,12 +5,12 @@ Getting productive with CommonShell using the unified ExecutableReference/Execut
 ## Overview
 
 CommonShell is a lightweight adapter on top of CommonProcess. Prefer using the
-unified `ExecutableReference` and `Executable` (from `CommonProcessRunners`) to
-express what you want to run and keep wrapper policy at the shell layer.
+unified `ExecutableReference` and `Executable` (from CommonProcess) to express
+what you want to run and keep wrapper policy at the shell layer.
 
 ```swift
 import CommonShell
-import CommonProcessRunners
+import CommonProcessExecutionKit
 
 // A neutral base configured to use /usr/bin/env by default
 let shell = CommonShell(executable: Executable.path("/usr/bin/env"))

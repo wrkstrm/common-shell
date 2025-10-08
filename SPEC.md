@@ -76,7 +76,8 @@
 - Functions:
   - `run(_:)`/`run(arguments:)` return stdout `String` and throw on failure.
 - `launch(options:)` returns buffered `ProcessOutput` with `utf8Output()` helper.
-  - Runner selection (lower-level): `let out = try await CommonProcessRunners.make(kind: .auto).makeRunner(for: invocation).run()`.
+  - Runner selection: prefer `try await invocation.run(preferredKind: .auto)`.
+    When you need direct access to kinds, use `RunnerControllerFactory`.
 - Migration:
   - Use `Executable.name(_:)` / `Executable.path(_:)` for identity.
   - Construct `CommandInvocation(executable: Executable, args: ...)` and let runners resolve.
@@ -96,7 +97,7 @@
 
 ```swift
 import CommonShell
-import CommonProcessRunners
+import CommonProcessExecutionKit
 
 let sh = CommonShell(executable: Executable.path("/usr/bin/env"))
 
