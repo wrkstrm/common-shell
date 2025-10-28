@@ -3,6 +3,7 @@ import CommonProcess
 import CommonProcessExecutionKit
 import CommonShell
 import Foundation
+import WrkstrmFoundation
 import WrkstrmLog
 
 /// Protocol for types that expose common shell arguments

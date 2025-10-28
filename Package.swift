@@ -5,6 +5,7 @@ var packageDependencies: [Package.Dependency] = [
   .package(name: "CommonProcess", path: "../common-process"),
   .package(name: "WrkstrmLog", path: "../../../../WrkstrmLog"),
   .package(name: "WrkstrmPerformance", path: "../../../../WrkstrmPerformance"),
+  .package(name: "WrkstrmFoundation", path: "../../../../WrkstrmFoundation"),
   .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
 ]
 // Removed ordo-one packages (package-benchmark) due to jemalloc issues on macOS CI.
@@ -67,6 +68,7 @@ let package = Package(
         "CommonShell",
         .product(name: "CommonProcessExecutionKit", package: "CommonProcess"),
         .product(name: "WrkstrmLog", package: "WrkstrmLog"),
+        .product(name: "WrkstrmFoundation", package: "WrkstrmFoundation"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
       path: "Sources/CommonShellArguments",

@@ -1,7 +1,7 @@
 # CommonShell – process execution wrapper
 
 ```
-               ┌──────────────────▶ │  CommandInvocation │  What to run (ExecutableRef)
+               ┌──────────────────▶ │  CommandSpec │  What to run (ExecutableRef)
                │
 CommonShell ──▶├──────────────────▶ │  Execution Host    │  How to wrap the tool
                │
@@ -20,10 +20,10 @@ Instrumentation├──────────────────▶ │ 
 - Runners (`ProcessRunnerKind`) handle the actual execution surface (Subprocess/Foundation/TSCBasic/Native).
 - Instrumentation and metrics tag invocations automatically (host kind propagates via `ProcessLogOptions.tags`).
 
-## CommandInvocation-first model
+## CommandSpec-first model
 
 ```swift
-public struct CommandInvocation: Codable, Sendable {
+public struct CommandSpec: Codable, Sendable {
   public var executable: Executable
   public var args: [String]
   public var env: EnvironmentModel?
@@ -77,7 +77,7 @@ Low-level entry point:
 
 ## Relationship to CommonProcess
 
-- Hosts produce new `CommandInvocation` instances with transformed `Executable`+args.
+- Hosts produce new `CommandSpec` instances with transformed `Executable`+args.
 - CommonProcess runners execute any invocation regardless of host choice.
 - Instrumentation/hardware metrics are shared across hosts and routes.
 

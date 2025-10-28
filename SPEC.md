@@ -18,7 +18,7 @@
 - `struct Executable`
   - `ref: ExecutableReference` (identity)
   - `options: [String]`, `arguments: [String]` (prepend defaults)
-- `struct CommandInvocation` (Codable)
+- `struct CommandSpec` (Codable)
   - `executable: Executable`
   - `args: [String]` (call‑site)
   - `workingDirectory: String?`, `env: EnvironmentModel?`
@@ -54,7 +54,7 @@
 - Use `ProcessInstrumentation` for hooks around execution.
   - `willStart(command: String, arguments: [String], workingDirectory: String, runnerName: String, requestId: String, startUptimeNs: UInt64)`
 - `didFinish(command: String, arguments: [String], workingDirectory: String, runnerName: String, requestId: String, status: ProcessExitStatus, processIdentifier: String?, startUptimeNs: UInt64, endUptimeNs: UInt64, stdoutPreview: String?, stderrPreview: String?)`
-- CommonShell forwards to `CommandInvocation.instrumentation` (injected from `instrumentationKey`) and includes monotonic timestamps.
+- CommonShell forwards to `CommandSpec.instrumentation` (injected from `instrumentationKey`) and includes monotonic timestamps.
 - Runners emit WrkstrmLog entries:
   - DEBUG: structured start block
   - INFO: one‑line summary (status, duration, cwd, cmd)
@@ -80,7 +80,7 @@
     When you need direct access to kinds, use `RunnerControllerFactory`.
 - Migration:
   - Use `Executable.name(_:)` / `Executable.path(_:)` for identity.
-  - Construct `CommandInvocation(executable: Executable, args: ...)` and let runners resolve.
+  - Construct `CommandSpec(executable: Executable, args: ...)` and let runners resolve.
 
 ### Wrappers and PATH resolution
 

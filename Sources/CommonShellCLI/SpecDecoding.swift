@@ -13,7 +13,7 @@ func decodeAnySpec(from data: Data) throws -> DecodedSpec {
     return try mapNewSpec(spec)
   }
   // Support Invocation JSON directly: map to a host based on executable metadata.
-  if let inv = try? decoder.decode(CommandInvocation.self, from: data) {
+  if let inv = try? decoder.decode(CommandSpec.self, from: data) {
     let host = inv.hostKind ?? defaultHost(for: inv.executable)
     return DecodedSpec(
       host: host,

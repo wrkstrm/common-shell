@@ -78,14 +78,14 @@ extension CommonShell {
     arguments: [String],
     environment: EnvironmentModel?,
     timeout: Duration?,
-  ) -> CommandInvocation {
+  ) -> CommandSpec {
     var options = makeProcessOptions()
     if let hostKind {
       var tags = options.tags ?? [:]
       tags["executionHost"] = hostKind.label
       options.tags = tags
     }
-    return CommandInvocation(
+    return CommandSpec(
       executable: executable,
       args: arguments,
       env: environment,
@@ -100,7 +100,7 @@ extension CommonShell {
     )
   }
 
-  func resolveHost(_ invocation: CommandInvocation) -> CommandInvocation {
+  func resolveHost(_ invocation: CommandSpec) -> CommandSpec {
     guard let hostKind = invocation.hostKind else { return invocation }
     let host = hostKind.makeHost()
     return host.resolve(invocation: invocation)
