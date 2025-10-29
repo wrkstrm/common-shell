@@ -62,7 +62,7 @@
 
 ## Behavior & Semantics
 
-- Command argv (effective): `executable.options + executable.arguments + invocation.args`.
+- Command argv (effective): `executable.options + executable.arguments + command.args`.
 - Working directory applies per run; defaults to `currentDirectoryPath`.
 - Logging: `logOptions.exposure` controls echoing and preview bytes.
 - Errors: non‑zero exit throws `ProcessError(status, stderrText)`.
@@ -76,7 +76,7 @@
 - Functions:
   - `run(_:)`/`run(arguments:)` return stdout `String` and throw on failure.
 - `launch(options:)` returns buffered `ProcessOutput` with `utf8Output()` helper.
-  - Runner selection: prefer `try await invocation.run(preferredKind: .auto)`.
+  - Runner selection: prefer `try await command.run(preferredKind: .auto)`.
     When you need direct access to kinds, use `RunnerControllerFactory`.
 - Migration:
   - Use `Executable.name(_:)` / `Executable.path(_:)` for identity.
@@ -84,13 +84,13 @@
 
 ### Wrappers and PATH resolution
 
-- Wrappers transform identity (name/path) into a finalized invocation using unified `Executable`:
+- Wrappers transform identity (name/path) into a finalized command using unified `Executable`:
   - `direct(path)`: set `Executable.path(path)`, prepend `options`, append call‑site args.
   - `shell(commandLine)`: use `Executable.path("/bin/sh")` with default `arguments = ["-c"]`; pass `commandLine` as a call‑site argument.
   - `env(name)`: use `Executable.path("/usr/bin/env")` with default `arguments = [name]`; pass call‑site args.
 - Direct name support (ergonomic): when a direct executable string lacks `/`, CommonShell will
   attempt to resolve it on PATH (using `resolveAbsolute(_:)`). If resolution fails, a clear error
-  is thrown. Prefer `.env(name:)` for PATH‑based invocation when portability matters.
+  is thrown. Prefer `.env(name:)` for PATH‑based commands when portability matters.
 - Wrapper sugar matches tau‑dev‑cli patterns (`shell.xcodebuild`, `shell.simctl`, `shell.openTool`).
 
 ### Examples
