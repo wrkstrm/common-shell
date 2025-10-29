@@ -18,7 +18,7 @@ public struct CommonShell: @unchecked Sendable, Codable {
   public init(
     workingDirectory: String = FileManager.default.currentDirectoryPath,
     executable: Executable = .none(),
-    hostKind: ExecutionHostKind? = .shell(options: []),
+    hostKind: ExecutionHostKind? = .direct,
     instrumentation: ProcessInstrumentation? = nil,
   ) {
     self.executable = executable
