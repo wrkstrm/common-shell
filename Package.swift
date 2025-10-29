@@ -2,9 +2,10 @@
 import Foundation
 import PackageDescription
 
-// Toggle local vs remote dependencies (mirrors CommonProcess approach).
-// Set SPM_USE_LOCAL_DEPS=true to use mono-local paths during development.
-let processPackageName: String = ProcessInfo.useLocalDeps ? "CommonProcess" : "common-process"
+// Use identical package identities for local and remote dependencies.
+// Local path identities derive from the directory name, matching remote repo names.
+let processPackageName: String = "common-process"
+let perfPackageName: String = "wrkstrm-performance"
 
 var packageDependencies: [Package.Dependency] = Package.Inject.shared.dependencies + [
   .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
@@ -14,7 +15,7 @@ var packageDependencies: [Package.Dependency] = Package.Inject.shared.dependenci
 var commonShellBenchDependencies: [Target.Dependency] = [
   "CommonShell",
   "CommonShellBenchSupport",
-  .product(name: "WrkstrmPerformance", package: "WrkstrmPerformance"),
+  .product(name: "WrkstrmPerformance", package: perfPackageName),
   .product(name: "ArgumentParser", package: "swift-argument-parser"),
   .product(name: "WrkstrmLog", package: "WrkstrmLog"),
 ]
@@ -48,7 +49,7 @@ let package = Package(
       dependencies: [
         "CommonShell",
         "CommonShellBenchSupport",
-        .product(name: "WrkstrmPerformance", package: "WrkstrmPerformance"),
+        .product(name: "WrkstrmPerformance", package: perfPackageName),
         .product(name: "CommonProcess", package: processPackageName),
       ],
       path: "Sources/CommonShellPerf",
@@ -144,10 +145,10 @@ extension Package {
     var dependencies: [PackageDescription.Package.Dependency] = []
 
     static var local: Inject = .init(dependencies: [
-      // Prefer local mono paths to avoid network + identity conflicts
-      .package(name: "CommonProcess", path: "../common-process"),
+      // Prefer local mono paths with identities matching remote repo names
+      .package(path: "../common-process"),
       .package(name: "WrkstrmLog", path: "../../../../WrkstrmLog"),
-      .package(name: "WrkstrmPerformance", path: "../../../../wrkstrm-performance"),
+      .package(path: "../../../../wrkstrm-performance"),
       .package(name: "WrkstrmFoundation", path: "../../../../WrkstrmFoundation"),
     ])
 
