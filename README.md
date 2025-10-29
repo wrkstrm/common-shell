@@ -1,5 +1,30 @@
 # CommonShell – process execution wrapper
 
+[![Swift CI (Linux)](https://github.com/wrkstrm/common-shell/actions/workflows/swift-ci.yml/badge.svg)](https://github.com/wrkstrm/common-shell/actions/workflows/swift-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+CommonShell is a thin, typed shell adapter that builds on CommonProcess (>= 0.2.0)
+to plan and execute commands consistently across hosts and runners.
+
+## Quickstart
+
+Add to your Package.swift dependencies:
+
+```swift
+.package(url: "https://github.com/wrkstrm/common-shell.git", from: "0.1.0")
+```
+
+Then import and run a command:
+
+```swift
+import CommonShell
+
+var shell = CommonShell(executable: .name("git"))
+shell.hostKind = .env(options: [])
+let out = try await shell.run(arguments: ["status"]) // throws on non-zero exit
+print(out)
+```
+
 ```
                ┌──────────────────▶ │  CommandSpec │  What to run (ExecutableRef)
                │
@@ -85,3 +110,7 @@ Low-level entry point:
 
 - API guides live under `Sources/CommonShell/Documentation.docc/`.
 - Comparison for CLI authors: `CommonShell-Comparison-TuistCommand.md` (when to use CommonShell vs Tuist Command).
+
+## License
+
+MIT — see `LICENSE`.

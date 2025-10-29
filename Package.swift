@@ -2,6 +2,7 @@
 import PackageDescription
 
 var packageDependencies: [Package.Dependency] = [
+  // Prefer local mono paths to avoid network + identity conflicts
   .package(name: "CommonProcess", path: "../common-process"),
   .package(name: "WrkstrmLog", path: "../../../../WrkstrmLog"),
   .package(name: "WrkstrmPerformance", path: "../../../../WrkstrmPerformance"),
