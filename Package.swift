@@ -79,7 +79,7 @@ let package = Package(
       dependencies: [
         "CommonShell",
         "CommonShellBenchSupport",
-        .product(name: "CommonProcessExecutionKit", package: "CommonProcess"),
+        .product(name: "CommonProcessExecutionKit", package: processPackageName),
         .product(name: "WrkstrmLog", package: "WrkstrmLog"),
       ],
       path: "Tests/CommonShellTests",
@@ -103,7 +103,7 @@ let package = Package(
       dependencies: [
         "CommonShell",
         "CommonShellBenchSupport",
-        .product(name: "CommonProcessExecutionKit", package: "CommonProcess"),
+        .product(name: "CommonProcessExecutionKit", package: processPackageName),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
       path: "Sources/CommonShellCLI",
@@ -147,14 +147,14 @@ extension Package {
       // Prefer local mono paths to avoid network + identity conflicts
       .package(name: "CommonProcess", path: "../common-process"),
       .package(name: "WrkstrmLog", path: "../../../../WrkstrmLog"),
-      .package(name: "WrkstrmPerformance", path: "../../../../WrkstrmPerformance"),
+      .package(name: "WrkstrmPerformance", path: "../../../../wrkstrm-performance"),
       .package(name: "WrkstrmFoundation", path: "../../../../WrkstrmFoundation"),
     ])
 
     static var remote: Inject = .init(dependencies: [
       .package(url: "https://github.com/wrkstrm/common-process.git", from: "0.2.0"),
       .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "2.0.0"),
-      .package(url: "https://github.com/wrkstrm/WrkstrmPerformance.git", from: "0.1.0"),
+      .package(url: "https://github.com/wrkstrm/wrkstrm-performance.git", from: "0.1.0"),
       .package(url: "https://github.com/wrkstrm/WrkstrmFoundation.git", from: "2.0.0"),
     ])
   }
