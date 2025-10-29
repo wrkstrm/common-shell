@@ -154,7 +154,7 @@ extension Package {
     static var remote: Inject = .init(dependencies: [
       .package(url: "https://github.com/wrkstrm/common-process.git", from: "0.2.0"),
       .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "2.0.0"),
-      .package(url: "https://github.com/wrkstrm/WrkstrmPerformance.git", branch: "main"),
+      .package(url: "https://github.com/wrkstrm/WrkstrmPerformance.git", from: "0.1.0"),
       .package(url: "https://github.com/wrkstrm/WrkstrmFoundation.git", from: "2.0.0"),
     ])
   }
