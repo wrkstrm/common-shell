@@ -1,0 +1,23 @@
+# SwiftPM build artifacts
+.build/
+.swiftpm/
+
+# DocC local output
+.docc-build/
+
+# macOS noise
+.DS_Store
+
+# Editors/IDEs
+.vscode/
+.idea/
+
+# Coverage, logs
+*.xccovreport
+*.xccovarchive
+*.lcov
+coverage/
+
+# Workspace-local caches
+.wrkstrm/
+
