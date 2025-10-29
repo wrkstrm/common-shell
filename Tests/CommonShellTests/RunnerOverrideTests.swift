@@ -18,7 +18,7 @@ struct RunnerOverrideTests {
       arguments: ["ok"],
       runnerKind: .auto,
     )
-    let expectedKind = CommonProcessRunners.defaultKind()
+    let expectedKind = RunnerControllerFactory.defaultKind()
     let expOut = try await sh.run(
       host: .direct,
       executable: Executable.path("/bin/echo"),
