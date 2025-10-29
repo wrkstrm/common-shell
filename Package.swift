@@ -1,12 +1,12 @@
 // swift-tools-version: 6.1
+import Foundation
 import PackageDescription
 
-var packageDependencies: [Package.Dependency] = [
-  // Prefer local mono paths to avoid network + identity conflicts
-  .package(name: "CommonProcess", path: "../common-process"),
-  .package(name: "WrkstrmLog", path: "../../../../WrkstrmLog"),
-  .package(name: "WrkstrmPerformance", path: "../../../../WrkstrmPerformance"),
-  .package(name: "WrkstrmFoundation", path: "../../../../WrkstrmFoundation"),
+// Toggle local vs remote dependencies (mirrors CommonProcess approach).
+// Set SPM_USE_LOCAL_DEPS=true to use mono-local paths during development.
+let processPackageName: String = ProcessInfo.useLocalDeps ? "CommonProcess" : "common-process"
+
+var packageDependencies: [Package.Dependency] = Package.Inject.shared.dependencies + [
   .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
 ]
 // Removed ordo-one packages (package-benchmark) due to jemalloc issues on macOS CI.
@@ -39,7 +39,7 @@ let package = Package(
       name: "CommonShellBenchSupport",
       dependencies: [
         "CommonShell",
-        .product(name: "CommonProcess", package: "CommonProcess"),
+        .product(name: "CommonProcess", package: processPackageName),
       ],
       path: "Sources/CommonShellBenchSupport",
     ),
@@ -49,7 +49,7 @@ let package = Package(
         "CommonShell",
         "CommonShellBenchSupport",
         .product(name: "WrkstrmPerformance", package: "WrkstrmPerformance"),
-        .product(name: "CommonProcess", package: "CommonProcess"),
+        .product(name: "CommonProcess", package: processPackageName),
       ],
       path: "Sources/CommonShellPerf",
       exclude: ["README.md"],
@@ -57,8 +57,8 @@ let package = Package(
     .target(
       name: "CommonShell",
       dependencies: [
-        .product(name: "CommonProcess", package: "CommonProcess"),
-        .product(name: "CommonProcessExecutionKit", package: "CommonProcess"),
+        .product(name: "CommonProcess", package: processPackageName),
+        .product(name: "CommonProcessExecutionKit", package: processPackageName),
         .product(name: "WrkstrmLog", package: "WrkstrmLog"),
       ],
       path: "Sources/CommonShell",
@@ -67,7 +67,7 @@ let package = Package(
       name: "CommonShellArguments",
       dependencies: [
         "CommonShell",
-        .product(name: "CommonProcessExecutionKit", package: "CommonProcess"),
+        .product(name: "CommonProcessExecutionKit", package: processPackageName),
         .product(name: "WrkstrmLog", package: "WrkstrmLog"),
         .product(name: "WrkstrmFoundation", package: "WrkstrmFoundation"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
@@ -113,7 +113,7 @@ let package = Package(
       dependencies: [
         "CommonShellBenchSupport",
         "CommonShell",
-        .product(name: "CommonProcess", package: "CommonProcess"),
+        .product(name: "CommonProcess", package: processPackageName),
       ],
       path: "Tests/CommonShellBenchTests",
     ),
@@ -134,3 +134,34 @@ let package = Package(
     ),
   ],
 )
+
+// MARK: - Package Service (local/remote deps)
+
+extension Package {
+  @MainActor
+  public struct Inject {
+    public static let shared: Inject = ProcessInfo.useLocalDeps ? .local : .remote
+    var dependencies: [PackageDescription.Package.Dependency] = []
+
+    static var local: Inject = .init(dependencies: [
+      // Prefer local mono paths to avoid network + identity conflicts
+      .package(name: "CommonProcess", path: "../common-process"),
+      .package(name: "WrkstrmLog", path: "../../../../WrkstrmLog"),
+      .package(name: "WrkstrmPerformance", path: "../../../../WrkstrmPerformance"),
+      .package(name: "WrkstrmFoundation", path: "../../../../WrkstrmFoundation"),
+    ])
+
+    static var remote: Inject = .init(dependencies: [
+      .package(url: "https://github.com/wrkstrm/common-process.git", from: "0.2.0"),
+      .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "2.0.0"),
+      .package(url: "https://github.com/wrkstrm/WrkstrmPerformance.git", branch: "main"),
+      .package(url: "https://github.com/wrkstrm/WrkstrmFoundation.git", from: "2.0.0"),
+    ])
+  }
+}
+
+extension ProcessInfo {
+  public static var useLocalDeps: Bool {
+    ProcessInfo.processInfo.environment["SPM_USE_LOCAL_DEPS"] == "true"
+  }
+}
