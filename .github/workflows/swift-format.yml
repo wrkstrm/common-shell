@@ -1,0 +1,33 @@
+name: "🧹 Swift Format"
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+    paths:
+      - '**'
+
+defaults:
+  run:
+    working-directory: .
+
+jobs:
+  swift-format:
+    runs-on: ubuntu-latest
+    container: swift:6.1-noble
+    steps:
+      - name: Checkout (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Download Swift Format configuration
+        run: |
+          command -v curl || (apt-get update -y && apt-get install -y curl)
+          curl -O https://raw.githubusercontent.com/wrkstrm/configs/main/linting/.swift-format
+
+      - name: Swift Format (lint only)
+        run: |
+          swift format lint --configuration .swift-format --strict --recursive .
+

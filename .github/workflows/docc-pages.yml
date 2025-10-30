@@ -1,0 +1,58 @@
+name: Publish DocC to GitHub Pages (Linux)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: docc-pages-commonshell
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    container: swift:6.1-noble
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate DocC with swift-docc-plugin
+        shell: bash
+        env:
+          BASE_PATH: ${{ github.event.repository.name }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/_site"
+          swift package \
+            --allow-writing-to-directory "$GITHUB_WORKSPACE/_site" \
+            generate-documentation \
+            --target CommonShell \
+            --output-path "$GITHUB_WORKSPACE/_site" \
+            --transform-for-static-hosting \
+            --hosting-base-path "$BASE_PATH"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
