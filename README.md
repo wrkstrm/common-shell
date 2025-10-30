@@ -114,3 +114,31 @@ Low-level entry point:
 ## License
 
 MIT — see `LICENSE`.
+
+## Platforms
+
+- macOS 14+, iOS 17+, Mac Catalyst 17+
+
+## Dependencies
+
+- CommonProcess (>= 0.2.0)
+- WrkstrmLog/WrkstrmFoundation (>= 2.0.0)
+- wrkstrm-performance (>= 0.1.0)
+
+## CI
+
+- Linux CI: build + test via swift‑ci
+- Format lint and DocC workflows mirror CommonProcess
+
+## Contributing
+
+Use CommonProcess/CommonShell runners; avoid `Foundation.Process` at call sites.
+See CONTRIBUTING.md for guidelines.
+
+## Security
+
+Report via GitHub Security Advisories (see SECURITY.md).
+
+## Changelog
+
+See CHANGELOG.md.
