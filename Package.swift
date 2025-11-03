@@ -7,9 +7,10 @@ import PackageDescription
 let processPackageName: String = "common-process"
 let perfPackageName: String = "wrkstrm-performance"
 
-var packageDependencies: [Package.Dependency] = Package.Inject.shared.dependencies + [
-  .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
-]
+var packageDependencies: [Package.Dependency] =
+  Package.Inject.shared.dependencies + [
+    .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0")
+  ]
 // Removed ordo-one packages (package-benchmark) due to jemalloc issues on macOS CI.
 
 var commonShellBenchDependencies: [Target.Dependency] = [
@@ -42,7 +43,7 @@ let package = Package(
         "CommonShell",
         .product(name: "CommonProcess", package: processPackageName),
       ],
-      path: "Sources/CommonShellBenchSupport",
+      path: "sources/CommonShellBenchSupport",
     ),
     .target(
       name: "CommonShellPerf",
@@ -52,7 +53,7 @@ let package = Package(
         .product(name: "WrkstrmPerformance", package: perfPackageName),
         .product(name: "CommonProcess", package: processPackageName),
       ],
-      path: "Sources/CommonShellPerf",
+      path: "sources/CommonShellPerf",
       exclude: ["README.md"],
     ),
     .target(
@@ -62,7 +63,7 @@ let package = Package(
         .product(name: "CommonProcessExecutionKit", package: processPackageName),
         .product(name: "WrkstrmLog", package: "WrkstrmLog"),
       ],
-      path: "Sources/CommonShell",
+      path: "sources/CommonShell",
     ),
     .target(
       name: "CommonShellArguments",
@@ -73,7 +74,7 @@ let package = Package(
         .product(name: "WrkstrmFoundation", package: "WrkstrmFoundation"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
-      path: "Sources/CommonShellArguments",
+      path: "sources/CommonShellArguments",
     ),
     .testTarget(
       name: "CommonShellTests",
@@ -83,12 +84,12 @@ let package = Package(
         .product(name: "CommonProcessExecutionKit", package: processPackageName),
         .product(name: "WrkstrmLog", package: "WrkstrmLog"),
       ],
-      path: "Tests/CommonShellTests",
+      path: "tests/CommonShellTests",
     ),
     .executableTarget(
       name: "CommonShellBench",
       dependencies: commonShellBenchDependencies,
-      path: "Sources/CommonShellBench",
+      path: "sources/CommonShellBench",
       linkerSettings: [
         .unsafeFlags(
           [
@@ -107,7 +108,7 @@ let package = Package(
         .product(name: "CommonProcessExecutionKit", package: processPackageName),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
-      path: "Sources/CommonShellCLI",
+      path: "sources/CommonShellCLI",
     ),
     .testTarget(
       name: "CommonShellBenchTests",
@@ -116,7 +117,7 @@ let package = Package(
         "CommonShell",
         .product(name: "CommonProcess", package: processPackageName),
       ],
-      path: "Tests/CommonShellBenchTests",
+      path: "tests/CommonShellBenchTests",
     ),
     .testTarget(
       name: "CommonShellCLITests",
@@ -124,14 +125,14 @@ let package = Package(
         "CommonShellCLI",
         "CommonShell",
       ],
-      path: "Tests/CommonShellCLITests",
+      path: "tests/CommonShellCLITests",
     ),
     .testTarget(
       name: "CommonShellInteractiveTests",
       dependencies: [
         "CommonShell"
       ],
-      path: "Tests/CommonShellInteractiveTests",
+      path: "tests/CommonShellInteractiveTests",
     ),
   ],
 )
