@@ -68,16 +68,16 @@ public struct CLIAppVersion: Sendable, Equatable {
     fileManager: FileManager = .default
   ) -> URL? {
     #if os(Linux)
-    // /proc/self/exe is a symlink to the running executable on Linux.
-    let procPath = "/proc/self/exe"
-    var buffer = [Int8](repeating: 0, count: 4096)
-    let length = readlink(procPath, &buffer, buffer.count)
-    if length > 0,
-      let resolved = String(
-        bytesNoCopy: &buffer, length: Int(length), encoding: .utf8, freeWhenDone: false)
-    {
-      return URL(fileURLWithPath: resolved).resolvingSymlinksInPath()
-    }
+      // /proc/self/exe is a symlink to the running executable on Linux.
+      let procPath = "/proc/self/exe"
+      var buffer = [Int8](repeating: 0, count: 4096)
+      let length = readlink(procPath, &buffer, buffer.count)
+      if length > 0 {
+        let bytes = buffer[0..<Int(length)].map { UInt8(bitPattern: $0) }
+        if let resolved = String(bytes: bytes, encoding: .utf8) {
+          return URL(fileURLWithPath: resolved).resolvingSymlinksInPath()
+        }
+      }
     #endif
 
     if let bundleURL = Bundle.main.executableURL {

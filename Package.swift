@@ -43,7 +43,7 @@ let package = Package(
         "CommonShell",
         .product(name: "CommonProcess", package: processPackageName),
       ],
-      path: "sources/CommonShellBenchSupport",
+      path: "sources/common-shell-bench-support",
     ),
     .target(
       name: "CommonShellPerf",
@@ -53,7 +53,7 @@ let package = Package(
         .product(name: "WrkstrmPerformance", package: perfPackageName),
         .product(name: "CommonProcess", package: processPackageName),
       ],
-      path: "sources/CommonShellPerf",
+      path: "sources/common-shell-perf",
       exclude: ["README.md"],
     ),
     .target(
@@ -63,7 +63,7 @@ let package = Package(
         .product(name: "CommonProcessExecutionKit", package: processPackageName),
         .product(name: "WrkstrmLog", package: "WrkstrmLog"),
       ],
-      path: "sources/CommonShell",
+      path: "sources/common-shell",
     ),
     .target(
       name: "CommonShellArguments",
@@ -74,7 +74,7 @@ let package = Package(
         .product(name: "WrkstrmFoundation", package: "WrkstrmFoundation"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
-      path: "sources/CommonShellArguments",
+      path: "sources/common-shell-arguments",
     ),
     .testTarget(
       name: "CommonShellTests",
@@ -84,12 +84,12 @@ let package = Package(
         .product(name: "CommonProcessExecutionKit", package: processPackageName),
         .product(name: "WrkstrmLog", package: "WrkstrmLog"),
       ],
-      path: "tests/CommonShellTests",
+      path: "tests/common-shell-tests",
     ),
     .executableTarget(
       name: "CommonShellBench",
       dependencies: commonShellBenchDependencies,
-      path: "sources/CommonShellBench",
+      path: "sources/common-shell-bench",
       linkerSettings: [
         .unsafeFlags(
           [
@@ -108,7 +108,7 @@ let package = Package(
         .product(name: "CommonProcessExecutionKit", package: processPackageName),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
-      path: "sources/CommonShellCLI",
+      path: "sources/common-shell-cli",
     ),
     .testTarget(
       name: "CommonShellBenchTests",
@@ -117,7 +117,7 @@ let package = Package(
         "CommonShell",
         .product(name: "CommonProcess", package: processPackageName),
       ],
-      path: "tests/CommonShellBenchTests",
+      path: "tests/common-shell-bench-tests",
     ),
     .testTarget(
       name: "CommonShellCLITests",
@@ -125,14 +125,14 @@ let package = Package(
         "CommonShellCLI",
         "CommonShell",
       ],
-      path: "tests/CommonShellCLITests",
+      path: "tests/common-shell-cli-tests",
     ),
     .testTarget(
       name: "CommonShellInteractiveTests",
       dependencies: [
         "CommonShell"
       ],
-      path: "tests/CommonShellInteractiveTests",
+      path: "tests/common-shell-interactive-tests",
     ),
   ],
 )
