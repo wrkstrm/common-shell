@@ -116,6 +116,9 @@ struct RunnerOverrideTests {
 #else
 @Suite("Runner overrides (Catalyst)")
 struct RunnerOverrideTests {
-  @Test func skippedOnCatalyst() async throws { /* no-op */  }
+  @Test
+  func skippedOnCatalyst() async throws {
+    // no-op
+  }
 }
 #endif

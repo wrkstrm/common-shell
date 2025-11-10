@@ -67,18 +67,9 @@ public struct CLIAppVersion: Sendable, Equatable {
     arguments: [String] = CommandLine.arguments,
     fileManager: FileManager = .default
   ) -> URL? {
-    #if os(Linux)
-      // /proc/self/exe is a symlink to the running executable on Linux.
-      let procPath = "/proc/self/exe"
-      var buffer = [Int8](repeating: 0, count: 4096)
-      let length = readlink(procPath, &buffer, buffer.count)
-      if length > 0 {
-        let bytes = buffer[0..<Int(length)].map { UInt8(bitPattern: $0) }
-        if let resolved = String(bytes: bytes, encoding: .utf8) {
-          return URL(fileURLWithPath: resolved).resolvingSymlinksInPath()
-        }
-      }
-    #endif
+    if let linuxExecutable = linuxExecutableURL() {
+      return linuxExecutable
+    }
 
     if let bundleURL = Bundle.main.executableURL {
       return bundleURL
@@ -97,6 +88,25 @@ public struct CLIAppVersion: Sendable, Equatable {
       .resolvingSymlinksInPath()
   }
 }
+
+#if os(Linux)
+extension CLIAppVersion {
+  fileprivate static func linuxExecutableURL() -> URL? {
+    // /proc/self/exe is a symlink to the running executable on Linux.
+    let procPath = "/proc/self/exe"
+    var buffer = [Int8](repeating: 0, count: 4096)
+    let length = readlink(procPath, &buffer, buffer.count)
+    guard length > 0 else { return nil }
+    let bytes = buffer[0..<Int(length)].map { UInt8(bitPattern: $0) }
+    guard let resolved = String(bytes: bytes, encoding: .utf8) else { return nil }
+    return URL(fileURLWithPath: resolved).resolvingSymlinksInPath()
+  }
+}
+#else
+extension CLIAppVersion {
+  fileprivate static func linuxExecutableURL() -> URL? { nil }
+}
+#endif
 
 public enum CLIAppVersionReader {
   /// Creates a version payload from epoch seconds and optional identifier.

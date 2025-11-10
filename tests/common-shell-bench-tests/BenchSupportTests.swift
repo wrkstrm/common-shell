@@ -51,7 +51,11 @@ struct BenchSupportTests {
   func render_csv_json_table() throws {
     let rows = [
       BenchRow(
-        host: "direct", route: "foundation", iterations: 3, total_ms: 12.3, avg_ms: 4.1,
+        host: "direct",
+        route: "foundation",
+        iterations: 3,
+        totalMilliseconds: 12.3,
+        averageMilliseconds: 4.1
       )
     ]
     // CSV

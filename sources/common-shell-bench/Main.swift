@@ -109,8 +109,8 @@ struct Matrix: AsyncParsableCommand {
       let host: String
       let route: String
       let iterations: Int
-      let total_ms: Double
-      let avg_ms: Double
+      let totalMilliseconds: Double
+      let averageMilliseconds: Double
     }
 
     var rows: [Row] = []
@@ -149,8 +149,8 @@ struct Matrix: AsyncParsableCommand {
                 host: host,
                 route: routeLabel(route),
                 iterations: metrics.iterations,
-                total_ms: metrics.totalMS,
-                avg_ms: metrics.averageMS
+                totalMilliseconds: metrics.totalMS,
+                averageMilliseconds: metrics.averageMS
               ))
           } else {
             _ = try? await shell.run(
@@ -180,8 +180,12 @@ struct Matrix: AsyncParsableCommand {
             let avgMs = totalMs / Double(ok)
             rows.append(
               .init(
-                host: host, route: routeLabel(route), iterations: ok, total_ms: totalMs,
-                avg_ms: avgMs))
+                host: host,
+                route: routeLabel(route),
+                iterations: ok,
+                totalMilliseconds: totalMs,
+                averageMilliseconds: avgMs
+              ))
           }
         }
       }
@@ -209,8 +213,8 @@ struct Matrix: AsyncParsableCommand {
                 host: host,
                 route: runnerToken,
                 iterations: metrics.iterations,
-                total_ms: metrics.totalMS,
-                avg_ms: metrics.averageMS
+                totalMilliseconds: metrics.totalMS,
+                averageMilliseconds: metrics.averageMS
               )
             )
           } else {
@@ -241,7 +245,12 @@ struct Matrix: AsyncParsableCommand {
             let avgMs = totalMs / Double(ok)
             rows.append(
               .init(
-                host: host, route: runnerToken, iterations: ok, total_ms: totalMs, avg_ms: avgMs))
+                host: host,
+                route: runnerToken,
+                iterations: ok,
+                totalMilliseconds: totalMs,
+                averageMilliseconds: avgMs
+              ))
           }
         }
       }
@@ -250,8 +259,11 @@ struct Matrix: AsyncParsableCommand {
     let rendered = BenchSupport.render(
       rows: rows.map {
         BenchRow(
-          host: $0.host, route: $0.route, iterations: $0.iterations, total_ms: $0.total_ms,
-          avg_ms: $0.avg_ms)
+          host: $0.host,
+          route: $0.route,
+          iterations: $0.iterations,
+          totalMilliseconds: $0.totalMilliseconds,
+          averageMilliseconds: $0.averageMilliseconds)
       },
       format: format,
     )

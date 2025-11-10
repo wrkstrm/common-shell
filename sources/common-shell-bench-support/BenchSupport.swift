@@ -155,8 +155,11 @@ public enum BenchSupport {
       var widths = headers.map(\.count)
       let values: [[String]] = rows.map { r in
         [
-          r.host, r.route, String(r.iterations), String(format: "%.1f", r.total_ms),
-          String(format: "%.3f", r.avg_ms),
+          r.host,
+          r.route,
+          String(r.iterations),
+          String(format: "%.1f", r.totalMilliseconds),
+          String(format: "%.3f", r.averageMilliseconds),
         ]
       }
       for v in values {
@@ -179,8 +182,8 @@ public enum BenchSupport {
     default:
       var csv = "host,route,iterations,total_ms,avg_ms\n"
       for r in rows {
-        let t = String(format: "%.1f", r.total_ms)
-        let a = String(format: "%.3f", r.avg_ms)
+        let t = String(format: "%.1f", r.totalMilliseconds)
+        let a = String(format: "%.3f", r.averageMilliseconds)
         csv += "\(r.host),\(r.route),\(r.iterations),\(t),\(a)\n"
       }
       return csv

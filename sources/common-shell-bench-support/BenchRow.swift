@@ -9,16 +9,30 @@ public struct BenchRow: Codable, Equatable {
   /// Number of iterations completed during the run.
   public let iterations: Int
   /// Total elapsed time in milliseconds.
-  public let total_ms: Double
+  public let totalMilliseconds: Double
   /// Average time per iteration in milliseconds.
-  public let avg_ms: Double
+  public let averageMilliseconds: Double
 
   /// Create a new benchmark row.
-  public init(host: String, route: String, iterations: Int, total_ms: Double, avg_ms: Double) {
+  public init(
+    host: String,
+    route: String,
+    iterations: Int,
+    totalMilliseconds: Double,
+    averageMilliseconds: Double
+  ) {
     self.host = host
     self.route = route
     self.iterations = iterations
-    self.total_ms = total_ms
-    self.avg_ms = avg_ms
+    self.totalMilliseconds = totalMilliseconds
+    self.averageMilliseconds = averageMilliseconds
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case host
+    case route
+    case iterations
+    case totalMilliseconds = "total_ms"
+    case averageMilliseconds = "avg_ms"
   }
 }
