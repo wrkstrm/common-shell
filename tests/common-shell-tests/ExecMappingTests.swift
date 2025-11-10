@@ -64,6 +64,9 @@ struct ExecMappingTests {
 #else
 @Suite("Exec mapping and helpers (Catalyst)")
 struct ExecMappingTests {
-  @Test func skippedOnCatalyst() async throws { /* no-op */  }
+  @Test
+  func skippedOnCatalyst() async throws {
+    // no-op
+  }
 }
 #endif

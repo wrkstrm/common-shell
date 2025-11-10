@@ -19,5 +19,7 @@ func streamLinesEchoSmoke() async throws {
 }
 #else
 @Test
-func catalystSkippedStream() async throws { /* streaming not available on Catalyst */  }
+func catalystSkippedStream() async throws {
+  // streaming not available on Catalyst
+}
 #endif

@@ -212,5 +212,7 @@ func runWrapperMatrixBasics() async throws {
 }
 #else
 @Test
-func catalystSkipped() async throws { /* no-op: process spawning unavailable */  }
+func catalystSkipped() async throws {
+  // no-op: process spawning unavailable
+}
 #endif

@@ -95,6 +95,9 @@ struct PerfMatrixTests {
 #else
 @Suite("Perf matrix (Catalyst)")
 struct PerfMatrixTests {
-  @Test func skippedOnCatalyst() async throws { /* no-op */  }
+  @Test
+  func skippedOnCatalyst() async throws {
+    // no-op
+  }
 }
 #endif

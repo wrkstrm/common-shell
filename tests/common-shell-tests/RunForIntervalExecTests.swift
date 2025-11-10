@@ -40,6 +40,9 @@ struct RunForIntervalExecTests {
 #else
 @Suite("runForInterval with Executable (Catalyst)")
 struct RunForIntervalExecTests {
-  @Test func skippedOnCatalyst() async throws { /* no-op */  }
+  @Test
+  func skippedOnCatalyst() async throws {
+    // no-op
+  }
 }
 #endif
