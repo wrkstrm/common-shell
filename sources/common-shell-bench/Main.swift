@@ -559,13 +559,7 @@ private final class BenchMetricsRecorder: ProcessMetricsRecorder, @unchecked Sen
       }
       if ProcessInfo.processInfo.environment["COMMON_SHELL_DEBUG_METRICS"] != nil {
         BenchMetricsRecorder.debugLog.trace(
-          "[bench] metric \(descriptor.key)=\(value)",
-          metadata: [
-            "metric": .string(descriptor.key),
-            "value": .stringConvertible(value),
-            "host": .string(key.host),
-            "route": .string(key.route),
-          ])
+          "[bench] metric \(descriptor.key)=\(value) host=\(key.host) route=\(key.route)")
       }
       summaries.append((descriptor.key, value))
     }
