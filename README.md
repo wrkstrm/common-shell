@@ -1,6 +1,9 @@
 # CommonShell – process execution wrapper
 
-[![Swift CI (Linux)](https://github.com/wrkstrm/common-shell/actions/workflows/swift-ci.yml/badge.svg)](https://github.com/wrkstrm/common-shell/actions/workflows/swift-ci.yml)
+| GitHub Actions | Status |
+| -------------- | ------ |
+| Workflows | [![Test: CommonShellTests][tests-core-badge]](https://github.com/wrkstrm/common-shell/actions/workflows/common-shell-tests-commonshell-tests.yml) [![Test: CommonShellCLITests][tests-cli-badge]](https://github.com/wrkstrm/common-shell/actions/workflows/common-shell-tests-commonshell-cli-tests.yml) [![Test: CommonShellInteractiveTests][tests-interactive-badge]](https://github.com/wrkstrm/common-shell/actions/workflows/common-shell-tests-commonshell-interactive-tests.yml) [![Test: CommonShellBenchTests][tests-bench-badge]](https://github.com/wrkstrm/common-shell/actions/workflows/common-shell-tests-commonshell-bench-tests.yml) [![Swift Format | common-shell][format-badge]](https://github.com/wrkstrm/common-shell/actions/workflows/common-shell-swift-format.yml) [![DocC | common-shell][docc-badge]](https://github.com/wrkstrm/common-shell/actions/workflows/common-shell-docc.yml) |
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 CommonShell is a thin, typed shell adapter that builds on CommonProcess (>= 0.2.0)
@@ -142,3 +145,10 @@ Report via GitHub Security Advisories (see SECURITY.md).
 ## Changelog
 
 See CHANGELOG.md.
+
+[tests-core-badge]: https://github.com/wrkstrm/common-shell/actions/workflows/common-shell-tests-commonshell-tests.yml/badge.svg
+[tests-cli-badge]: https://github.com/wrkstrm/common-shell/actions/workflows/common-shell-tests-commonshell-cli-tests.yml/badge.svg
+[tests-interactive-badge]: https://github.com/wrkstrm/common-shell/actions/workflows/common-shell-tests-commonshell-interactive-tests.yml/badge.svg
+[tests-bench-badge]: https://github.com/wrkstrm/common-shell/actions/workflows/common-shell-tests-commonshell-bench-tests.yml/badge.svg
+[format-badge]: https://github.com/wrkstrm/common-shell/actions/workflows/common-shell-swift-format.yml/badge.svg
+[docc-badge]: https://github.com/wrkstrm/common-shell/actions/workflows/common-shell-docc.yml/badge.svg
