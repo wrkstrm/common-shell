@@ -1,4 +1,4 @@
-name: 📖 DocC
+name: "📖 DocC | common-shell"
 
 on:
   push:
