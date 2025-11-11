@@ -1,4 +1,4 @@
-name: "🧹 Swift Format | common-shell"
+name: "🧹 | Swift Format | common-shell"
 
 on:
   pull_request:
