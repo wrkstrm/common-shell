@@ -497,6 +497,7 @@ private final class BenchMetricsRecorder: ProcessMetricsRecorder, @unchecked Sen
     attributes: .concurrent,
   )
   private var storage: [Key: Record] = [:]
+  private static let debugLog = Log(system: "wrkstrm.common-shell.bench", category: "metrics")
 
   func recordStart(
     command _: String,
@@ -557,12 +558,14 @@ private final class BenchMetricsRecorder: ProcessMetricsRecorder, @unchecked Sen
         continue
       }
       if ProcessInfo.processInfo.environment["COMMON_SHELL_DEBUG_METRICS"] != nil {
-        let line = "[bench] metric \(descriptor.key)=\(value)\n"
-        if let data = line.data(using: .utf8) {
-          try? FileHandle.standardError.write(contentsOf: data)
-        } else {
-          fputs(line, stderr)
-        }
+        BenchMetricsRecorder.debugLog.trace(
+          "[bench] metric \(descriptor.key)=\(value)",
+          metadata: [
+            "metric": .string(descriptor.key),
+            "value": .stringConvertible(value),
+            "host": .string(key.host),
+            "route": .string(key.route),
+          ])
       }
       summaries.append((descriptor.key, value))
     }
