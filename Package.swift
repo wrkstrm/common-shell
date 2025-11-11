@@ -9,7 +9,9 @@ let perfPackageName: String = "wrkstrm-performance"
 
 var packageDependencies: [Package.Dependency] =
   Package.Inject.shared.dependencies + [
-    .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0")
+    .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
+    // DocC plugin for documentation generation parity with CommonProcess
+    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.4.0"),
   ]
 // Removed ordo-one packages (package-benchmark) due to jemalloc issues on macOS CI.
 

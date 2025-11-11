@@ -1,4 +1,4 @@
-name: Publish DocC to GitHub Pages (Linux)
+name: 📖 Publish DocC to GitHub Pages (Linux)
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate DocC with swift-docc-plugin
+      - name: 📖 Generate DocC with swift-docc-plugin
         shell: bash
         env:
           BASE_PATH: ${{ github.event.repository.name }}
@@ -55,4 +55,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
