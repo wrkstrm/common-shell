@@ -1,4 +1,4 @@
-name: 📖 Publish DocC to GitHub Pages (Linux)
+name: 📖 DocC
 
 on:
   push:
@@ -25,20 +25,114 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: 📖 Generate DocC with swift-docc-plugin
+      - name: 📖 Generate DocC with swift-docc-plugin (multi-target)
         shell: bash
         env:
           BASE_PATH: ${{ github.event.repository.name }}
+          MODULE_SLUG: commonshell
         run: |
           set -euo pipefail
-          mkdir -p "$GITHUB_WORKSPACE/_site"
+          rm -rf "$GITHUB_WORKSPACE/_site" "$GITHUB_WORKSPACE/_site-main" "$GITHUB_WORKSPACE/_site-args"
+          mkdir -p "$GITHUB_WORKSPACE/_site-main" "$GITHUB_WORKSPACE/_site-args"
+          # 1) Main module
           swift package \
-            --allow-writing-to-directory "$GITHUB_WORKSPACE/_site" \
+            --allow-writing-to-directory "$GITHUB_WORKSPACE/_site-main" \
             generate-documentation \
             --target CommonShell \
-            --output-path "$GITHUB_WORKSPACE/_site" \
+            --output-path "$GITHUB_WORKSPACE/_site-main" \
             --transform-for-static-hosting \
             --hosting-base-path "$BASE_PATH"
+          # 2) Arguments module
+          swift package \
+            --allow-writing-to-directory "$GITHUB_WORKSPACE/_site-args" \
+            generate-documentation \
+            --target CommonShellArguments \
+            --output-path "$GITHUB_WORKSPACE/_site-args" \
+            --transform-for-static-hosting \
+            --hosting-base-path "$BASE_PATH"
+          # 3) Merge bundles into final _site
+          rsync -a "$GITHUB_WORKSPACE/_site-main/" "$GITHUB_WORKSPACE/_site/"
+          rsync -a "$GITHUB_WORKSPACE/_site-args/documentation/" "$GITHUB_WORKSPACE/_site/documentation/"
+          rsync -a "$GITHUB_WORKSPACE/_site-args/data/documentation/" "$GITHUB_WORKSPACE/_site/data/documentation/" || true
+          # 4) Friendly landing page linking both modules
+          cat > "$GITHUB_WORKSPACE/_site/index.html" << EOF
+          <!doctype html>
+          <html>
+          <head>
+            <meta charset="utf-8" />
+            <title>CommonShell documentation</title>
+          </head>
+          <body>
+            <h1>CommonShell — Documentation</h1>
+            <ul>
+              <li><a href="/$BASE_PATH/documentation/commonshell/">CommonShell</a></li>
+              <li><a href="/$BASE_PATH/documentation/commonshellarguments/">CommonShellArguments</a></li>
+            </ul>
+          </body>
+          </html>
+          EOF
+
+      - name: 📖 Build DocC for org site path (multi-target)
+        if: ${{ secrets.ORG_PAGES_TOKEN != '' }}
+        run: |
+          set -euo pipefail
+          rm -rf "$GITHUB_WORKSPACE/_site-org" "$GITHUB_WORKSPACE/_site-org-args"
+          mkdir -p "$GITHUB_WORKSPACE/_site-org" "$GITHUB_WORKSPACE/_site-org-args"
+          # commonshell
+          swift package \
+            --allow-writing-to-directory "$GITHUB_WORKSPACE/_site-org" \
+            generate-documentation \
+            --target CommonShell \
+            --output-path "$GITHUB_WORKSPACE/_site-org" \
+            --transform-for-static-hosting \
+            --hosting-base-path "documentation/commonshell"
+          # commonshellarguments
+          swift package \
+            --allow-writing-to-directory "$GITHUB_WORKSPACE/_site-org-args" \
+            generate-documentation \
+            --target CommonShellArguments \
+            --output-path "$GITHUB_WORKSPACE/_site-org-args" \
+            --transform-for-static-hosting \
+            --hosting-base-path "documentation/commonshellarguments"
+
+      - name: 📖 Publish to org Pages repo (optional)
+        if: ${{ secrets.ORG_PAGES_TOKEN != '' }}
+        env:
+          ORG_PAGES_REPO: ${{ vars.ORG_PAGES_REPO || 'wrkstrm/wrkstrm.github.io' }}
+          GH_TOKEN: ${{ secrets.ORG_PAGES_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions"
+          rm -rf org-site
+          git clone "https://x-access-token:${GH_TOKEN}@github.com/${ORG_PAGES_REPO}.git" org-site
+          mkdir -p "org-site/documentation/commonshell" "org-site/documentation/commonshellarguments"
+          rsync -a --delete "$GITHUB_WORKSPACE/_site-org/" "org-site/documentation/commonshell/"
+          rsync -a --delete "$GITHUB_WORKSPACE/_site-org-args/" "org-site/documentation/commonshellarguments/"
+          # Convenience redirects for hyphen variants
+          mkdir -p "org-site/documentation/common-shell"
+          cat > "org-site/documentation/common-shell/index.html" << RDR
+          <!doctype html><html><head>
+          <meta http-equiv="refresh" content="0; url=/documentation/commonshell/">
+          <meta name="robots" content="noindex">
+          </head><body>Redirecting…</body></html>
+          RDR
+          mkdir -p "org-site/documentation/common-shell-arguments"
+          cat > "org-site/documentation/common-shell-arguments/index.html" << RDR
+          <!doctype html><html><head>
+          <meta http-equiv="refresh" content="0; url=/documentation/commonshellarguments/">
+          <meta name="robots" content="noindex">
+          </head><body>Redirecting…</body></html>
+          RDR
+          pushd org-site >/dev/null
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "docs(common-shell): publish DocC to commonshell + commonshellarguments (via Actions)"
+            git push origin HEAD
+          else
+            echo "No changes to publish to org site."
+          fi
+          popd >/dev/null
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

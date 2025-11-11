@@ -1,5 +1,5 @@
 # Workflow: per-target tests for CommonShellBenchTests
-name: "⚠️ | Swift Test| CommonShellBenchTests"
+name: "⚠️ | Test | CommonShellBenchTests"
 
 on:
   pull_request:
