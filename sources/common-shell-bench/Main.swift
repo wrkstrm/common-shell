@@ -557,7 +557,12 @@ private final class BenchMetricsRecorder: ProcessMetricsRecorder, @unchecked Sen
         continue
       }
       if ProcessInfo.processInfo.environment["COMMON_SHELL_DEBUG_METRICS"] != nil {
-        fputs("[bench] metric \(descriptor.key)=\(value)\n", stderr)
+        let line = "[bench] metric \(descriptor.key)=\(value)\n"
+        if let data = line.data(using: .utf8) {
+          try? FileHandle.standardError.write(contentsOf: data)
+        } else {
+          fputs(line, stderr)
+        }
       }
       summaries.append((descriptor.key, value))
     }

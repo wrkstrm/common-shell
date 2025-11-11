@@ -5,8 +5,7 @@ import Testing
 
 @Test(
   "echo: jitter + seed yields deterministic cadence",
-  .timeLimit(.minutes(1)),
-  .serialized,
+  .timeLimit(.minutes(1))
 )
 func placeholder_echo_jitter_seed() async throws {
   #expect(
@@ -16,8 +15,7 @@ func placeholder_echo_jitter_seed() async throws {
 
 @Test(
   "echo: stderr mixing via --stderr-every",
-  .timeLimit(.minutes(1)),
-  .serialized,
+  .timeLimit(.minutes(1))
 )
 func placeholder_echo_stderr_mixing() async throws {
   #expect(false, "TODO: assert stderr receives every Nth line and stdout remains intact")
@@ -25,8 +23,7 @@ func placeholder_echo_stderr_mixing() async throws {
 
 @Test(
   "echo: bytes-per-line produces exact payload sizes",
-  .timeLimit(.minutes(1)),
-  .serialized,
+  .timeLimit(.minutes(1))
 )
 func placeholder_echo_bytes_per_line() async throws {
   #expect(false, "TODO: measure output line lengths (sans prefix) across several sizes")
@@ -34,8 +31,7 @@ func placeholder_echo_bytes_per_line() async throws {
 
 @Test(
   "echo: random early-exit obeys probability bounds and seed",
-  .timeLimit(.minutes(1)),
-  .serialized,
+  .timeLimit(.minutes(1))
 )
 func placeholder_echo_random_early_exit() async throws {
   #expect(
@@ -46,8 +42,7 @@ func placeholder_echo_random_early_exit() async throws {
 
 @Test(
   "echo: non-zero --exit-status is propagated",
-  .timeLimit(.minutes(1)),
-  .serialized,
+  .timeLimit(.minutes(1))
 )
 func placeholder_echo_exit_status() async throws {
   #expect(false, "TODO: set --exit-status 7 and assert process exit code 7")

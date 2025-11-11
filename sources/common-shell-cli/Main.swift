@@ -124,7 +124,11 @@ struct CommonShellMain: AsyncParsableCommand {
         environment: envOverrides,
         runnerKind: cliRunner ?? decoded.runner,
       )
-      fputs(output, stdout)
+      if let data = output.data(using: .utf8) {
+        try? FileHandle.standardOutput.write(contentsOf: data)
+      } else {
+        print(output, terminator: "")
+      }
     }
   }
 }
