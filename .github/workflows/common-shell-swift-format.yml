@@ -30,4 +30,3 @@ jobs:
       - name: Swift Format (lint only)
         run: |
           swift format lint --configuration .swift-format --strict --recursive .
-

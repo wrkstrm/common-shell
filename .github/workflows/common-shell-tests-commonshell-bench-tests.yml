@@ -1,14 +1,15 @@
-name: Swift CI (Linux)
+# Workflow: per-target tests for CommonShellBenchTests
+name: "⚠️ | Swift Test| CommonShellBenchTests"
 
 on:
+  pull_request:
+    branches: [ main ]
   push:
     branches: [ main ]
     tags: [ 'v*.*.*' ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
-  linux:
+  test:
     runs-on: ubuntu-latest
     container: swift:6.1-noble
     steps:
@@ -17,12 +18,7 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install zstd (cache compression)
-        run: |
-          apt-get update -y
-          apt-get install -y zstd
-
-      - name: Restore .build
+      - name: Restore .build cache
         id: restore-build
         uses: actions/cache/restore@v4
         with:
@@ -31,7 +27,7 @@ jobs:
           restore-keys: |
             swiftpm-build-${{ runner.os }}-
 
-      - name: Build (tests + coverage)
+      - name: Build tests
         run: swift build --build-tests --enable-code-coverage
 
       - name: Cache .build (if miss)
@@ -41,5 +37,5 @@ jobs:
           path: .build
           key: swiftpm-build-${{ runner.os }}-${{ github.event.pull_request.base.sha || github.event.after }}
 
-      - name: Run unit tests (reuse build)
-        run: swift test --skip-build --enable-code-coverage --parallel
+      - name: Run CommonShellBenchTests
+        run: swift test --skip-build --enable-code-coverage --parallel --filter '^CommonShellBenchTests\.'
