@@ -74,4 +74,3 @@ print(out.utf8Output())
 - Don’t use `Foundation.Process` directly in CLIs — use `CommonShell`/`CommonProcess`.
 - Prefer `Executable.name("tool")` over PATH‑searching at runtime; avoid `which` shellouts when identity is known.
 - Keep outputs human‑grade and machine‑friendly: pretty/sorted JSON for files; NDJSON with one line per record.
-

@@ -32,4 +32,3 @@ Thanks for your interest in contributing!
 
 By contributing, you agree that your contributions will be licensed under the
 MIT License (see `LICENSE`) and that you will abide by the `CODE_OF_CONDUCT.md`.
-

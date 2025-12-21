@@ -7,4 +7,3 @@ Please report vulnerabilities via GitHub Security Advisories.
 - Provide a clear description and, if possible, minimal reproduction steps.
 
 The maintainers (@rismay) will review and respond according to severity.
-

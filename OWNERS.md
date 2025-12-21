@@ -1,4 +1,3 @@
 # Owners
 
 - @rismay — maintainer
-
