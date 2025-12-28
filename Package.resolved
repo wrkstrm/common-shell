@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-configuration",
       "state" : {
-        "revision" : "9d5e40727efd060fb9b41b69932738f478abaa43",
-        "version" : "0.2.0"
+        "revision" : "3528deb75256d7dcbb0d71fa75077caae0a8c749",
+        "version" : "1.0.0"
       }
     },
     {
