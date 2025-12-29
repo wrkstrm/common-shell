@@ -24,7 +24,7 @@ import CommonShell
 
 var shell = CommonShell(executable: .name("git"))
 shell.hostKind = .env(options: [])
-let out = try await shell.run(arguments: ["status"]) // throws on non-zero exit
+let out = try await shell.run(arguments: ["status"])  // throws on non-zero exit
 print(out)
 ```
 
@@ -62,7 +62,7 @@ public struct CommandSpec: Codable, Sendable {
   public var hostKind: ExecutionHostKind? = nil
   public var runnerKind: ProcessRunnerKind? = nil
   public var timeout: Duration? = nil
-  public var instrumentation: ProcessInstrumentation? = nil // runtime-only
+  public var instrumentation: ProcessInstrumentation? = nil  // runtime-only
 }
 ```
 

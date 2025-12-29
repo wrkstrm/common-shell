@@ -96,8 +96,8 @@
 ### Examples
 
 ```swift
-import CommonShell
 import CommonProcessExecutionKit
+import CommonShell
 
 let sh = CommonShell(executable: Executable.path("/usr/bin/env"))
 

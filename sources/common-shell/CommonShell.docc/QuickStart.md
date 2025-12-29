@@ -9,8 +9,8 @@ unified `ExecutableReference` and `Executable` (from CommonProcess) to express
 what you want to run and keep wrapper policy at the shell layer.
 
 ```swift
-import CommonShell
 import CommonProcessExecutionKit
+import CommonShell
 
 // A neutral base configured to use /usr/bin/env by default
 let shell = CommonShell(executable: Executable.path("/usr/bin/env"))
@@ -73,14 +73,17 @@ host-aware helpers:
 
 ```swift
 // Shell host convenience with override identity
-print(try await shell.run(host: .shell(options: []), identity: .path("/bin/sh"), args: ["echo via shell"]))
+print(
+  try await shell.run(
+    host: .shell(options: []), identity: .path("/bin/sh"), args: ["echo via shell"]))
 
 // Env host with explicit options via the low-level API
-print(try await shell.run(
-  host: .env(options: ["-n"]),
-  executable: Executable.name("echo"),
-  arguments: ["ok"]
-))
+print(
+  try await shell.run(
+    host: .env(options: ["-n"]),
+    executable: Executable.name("echo"),
+    arguments: ["ok"]
+  ))
 ```
 
 ## Duration benchmarks

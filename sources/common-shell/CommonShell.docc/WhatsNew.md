@@ -11,8 +11,8 @@ A quick note on the simplified CommonShell API.
 ## Examples
 
 ```swift
-import CommonShell
 import CommonProcessExecutionKit
+import CommonShell
 
 let sh = CommonShell(executable: .path("/usr/bin/env"))
 

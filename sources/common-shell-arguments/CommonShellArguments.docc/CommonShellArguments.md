@@ -23,7 +23,7 @@ struct MyCLI: AsyncParsableCommand, CommonShellParsableArguments {
       host: .shell(options: []),
       identity: .path("/bin/sh"),
       args: ["echo hello"]
-    ) // via shell wrapper
+    )  // via shell wrapper
     print(out)
   }
 }

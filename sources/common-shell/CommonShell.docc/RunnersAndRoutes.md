@@ -14,8 +14,8 @@ CommonProcess provides multiple runner backends (availability depends on platfor
 Pick explicitly on any CommonShell `run`/`runForInterval` via `runnerKind:`:
 
 ```swift
-import CommonShell
 import CommonProcessExecutionKit
+import CommonShell
 
 let sh = CommonShell(executable: Executable.path("/usr/bin/env"))
 let out = try await sh.run(

@@ -38,7 +38,7 @@ print(out.utf8Output())
 
 // Streaming run (consume events)
 let (events, cancel) = try shell.stream(["log", "--oneline"])
-for try await e in events { /* .stdout/.stderr/.completed */ }
+for try await e in events { /* .stdout/.stderr/.completed */  }
 
 // Host wrappers (env/shell/npx/npm) set Invocation.hostKind appropriately
 let envOut = try await shell.runEnv(["PATH"])  // runs env PATH
