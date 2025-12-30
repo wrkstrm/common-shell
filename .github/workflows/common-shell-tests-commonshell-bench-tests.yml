@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: .build
-          key: swiftpm-build-${{ runner.os }}-${{ github.event.pull_request.base.sha || github.event.after }}
+          key: swiftpm-build-${{ runner.os }}-${{ hashFiles('**/Package.resolved', '**/Package.swift') }}
           restore-keys: |
             swiftpm-build-${{ runner.os }}-
 
@@ -35,7 +35,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: .build
-          key: swiftpm-build-${{ runner.os }}-${{ github.event.pull_request.base.sha || github.event.after }}
+          key: swiftpm-build-${{ runner.os }}-${{ hashFiles('**/Package.resolved', '**/Package.swift') }}
 
       - name: Run CommonShellBenchTests
         run: swift test --skip-build --enable-code-coverage --parallel --filter '^CommonShellBenchTests\.'
