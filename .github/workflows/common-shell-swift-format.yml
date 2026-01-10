@@ -14,7 +14,10 @@ defaults:
 
 jobs:
   swift-format:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     container: swift:6.1-noble
     steps:
       - name: Checkout (with submodules)
