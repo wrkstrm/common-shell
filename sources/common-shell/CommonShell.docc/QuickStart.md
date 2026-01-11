@@ -16,7 +16,7 @@ import CommonShell
 let shell = CommonShell(executable: Executable.path("/usr/bin/env"))
 ```
 
-## One‑shot runs with `run(reference:)`
+## One‑shot Runs With `Run(reference:)`
 
 Run a PATH tool with extra flags:
 
@@ -48,7 +48,7 @@ let gitStatus = try await shell.run(
 )
 ```
 
-## Pre‑binding with `withExec(reference:)`
+## Pre‑binding With `WithExec(reference:)`
 
 Create a shell pre‑bound to a tool by name (env) or path (direct) with optional
 default options/arguments.
@@ -65,7 +65,7 @@ let directEcho = base.withExec(reference: .path("/bin/echo"))
 print(try await directEcho.run(args: ["ok"]))
 ```
 
-## Hosts when you need them
+## Hosts When You Need Them
 
 `run(reference:)` and `withExec(reference:)` pick appropriate transports under
 the hood. If you need explicit host control (shell/env/npm/npx), use the
@@ -86,7 +86,7 @@ print(
   ))
 ```
 
-## Duration benchmarks
+## Duration Benchmarks
 
 Assess wrapper or route overhead by running as many iterations as possible
 within a fixed time budget:
@@ -102,7 +102,7 @@ let res = try await shell.runForInterval(
 print(res.iterations, res.averageMS)
 ```
 
-## CLI: CommandSpec JSON + flags
+## CLI: CommandSpec JSON + Flags
 
 Use the `common-shell-cli` to execute a codable `CommandSpec` from JSON. The CLI accepts:
 
@@ -123,7 +123,7 @@ swift run --package-path code/mono/apple/spm/universal/common/domain/system/comm
   --runner-kind auto --instrumentation-key noop < /path/to/invocation.json
 ```
 
-## Design philosophy (L0–L4)
+## Design Philosophy (L0–L4)
 
 - Level 0 — process: CommonProcess identity/invocation/runners.
 - Level 1 — shell: CommonShell convenience and logging.
@@ -131,7 +131,7 @@ swift run --package-path code/mono/apple/spm/universal/common/domain/system/comm
 
 See docs/reference/architecture/domains/common-shell-cli.md for the full rationale and guidance on choosing levels.
 
-### Type safety and autonomy
+### Type Safety And Autonomy
 
 - Strongly typed options (in CommonCLI and shared spec modules) constrain
   command surfaces so automated agents generate only valid invocations.

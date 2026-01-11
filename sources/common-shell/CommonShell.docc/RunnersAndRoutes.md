@@ -2,7 +2,7 @@
 
 Choosing how processes are executed and exploring route planning.
 
-## Runner kinds
+## Runner Kinds
 
 CommonProcess provides multiple runner backends (availability depends on platform/build):
 
@@ -30,7 +30,7 @@ CLI flags:
 
 - ``--runner-kind`` to request a backend (falls back when unsupported)
 
-## Execution hosts
+## Execution Hosts
 
 Execution hosts determine how CommonShell wraps the underlying command before invoking the runner:
 
@@ -42,7 +42,7 @@ Execution hosts determine how CommonShell wraps the underlying command before in
 
 Hosts compose with runner routes. Bench helpers enumerate host × route combinations for matrix runs.
 
-## Route planning
+## Route Planning
 
 Some tools and hosts benefit from exploring multiple execution routes and comparing
 performance. CommonShell exposes a route model and bench helpers:
@@ -78,7 +78,7 @@ common-shell-bench metrics \
 - ``native`` — reserved (future native adapter)
 - ``subprocess:<runner>[,…]`` — one or more of `foundation,tscbasic,subprocess`
 
-## Duration benchmarking
+## Duration Benchmarking
 
 Use `runForInterval` to measure host overhead or compare routes:
 

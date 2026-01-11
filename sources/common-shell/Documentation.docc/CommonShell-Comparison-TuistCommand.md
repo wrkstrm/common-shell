@@ -1,4 +1,4 @@
-# CLI Authors: CommonShell vs Tuist Command
+# CLI Authors: CommonShell Vs Tuist Command
 
 This guide helps CLI authors choose between using Tuist’s `Command` directly or
 wrapping process execution with `CommonShell` (built on `CommonProcess`).
@@ -11,7 +11,7 @@ wrapping process execution with `CommonShell` (built on `CommonProcess`).
 - Use Tuist `Command` only for external projects that need a single, minimal
   `Process` wrapper and do not require codable invocations or runner abstraction.
 
-## Surface comparison
+## Surface Comparison
 
 - Tuist Command
   - `Command.run([String], environment: [String:String], workingDirectory: Path.AbsolutePath?) -> AsyncThrowingStream<CommandEvent, Error>`
@@ -24,7 +24,7 @@ wrapping process execution with `CommonShell` (built on `CommonProcess`).
   - Buffered or streaming modes; explicit `.completed` event on streaming; structured previews/logging/metrics.
   - Timeouts, tags, requestId, and instrumentation are first‑class options.
 
-## Typical flows
+## Typical Flows
 
 ```swift
 import CommonShell
@@ -44,7 +44,7 @@ for try await e in events { /* .stdout/.stderr/.completed */  }
 let envOut = try await shell.runEnv(["PATH"])  // runs env PATH
 ```
 
-## When to choose which
+## When To Choose Which
 
 - Choose `CommonShell` when you need:
   - Typed, codable invocation for auditability.
@@ -57,7 +57,7 @@ let envOut = try await shell.runEnv(["PATH"])  // runs env PATH
   - Minimal, Process‑only streaming for a small external utility.
   - No need for codable invocations, metrics, or runner abstraction.
 
-## Migration sketch (Command → CommonShell)
+## Migration Sketch (Command → CommonShell)
 
 ```swift
 // Before (Tuist Command)
@@ -69,7 +69,7 @@ let out = try await sh.run(["--version"], timeout: .seconds(5))
 print(out.utf8Output())
 ```
 
-## Policy reminders (Wrkstrm)
+## Policy Reminders (Wrkstrm)
 
 - Don’t use `Foundation.Process` directly in CLIs — use `CommonShell`/`CommonProcess`.
 - Prefer `Executable.name("tool")` over PATH‑searching at runtime; avoid `which` shellouts when identity is known.

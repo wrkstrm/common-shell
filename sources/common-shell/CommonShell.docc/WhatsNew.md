@@ -1,4 +1,4 @@
-# What’s New (API simplification)
+# What’s New (API Simplification)
 
 A quick note on the simplified CommonShell API.
 
