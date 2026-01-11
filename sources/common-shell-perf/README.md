@@ -4,7 +4,7 @@ Opt‑in perf helpers for CommonShell that delegate to WrkstrmPerformance. The h
 the CommonShell package as a separate library product so callers can link them without pulling the
 extra dependency into the core target.
 
-## Add dependency
+## Add Dependency
 
 In a package that already depends on `CommonShell`:
 

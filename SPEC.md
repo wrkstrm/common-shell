@@ -1,4 +1,4 @@
-# CommonShell API Spec (v0.1 – planning)
+# CommonShell API Spec (V0.1 – Planning)
 
 ## Goal
 
@@ -12,7 +12,7 @@
   - Target `CommonProcess`: process abstraction (protocols + minimal types)
   - Target `CommonShell`: shell adapter built on CommonProcess
 
-## CommonProcess (target)
+## CommonProcess (Target)
 
 - `enum ExecutableReference` (name|path)
 - `struct Executable`
@@ -31,7 +31,7 @@
 - `struct ProcessError: Error, CustomStringConvertible` (from CommonProcessRunners)
   - `status: Int?`, `error: String`
 
-## CommonShell (target)
+## CommonShell (Target)
 
 - `struct CommonShell`
   - Properties
@@ -82,7 +82,7 @@
   - Use `Executable.name(_:)` / `Executable.path(_:)` for identity.
   - Construct `CommandSpec(executable: Executable, args: ...)` and let runners resolve.
 
-### Wrappers and PATH resolution
+### Wrappers and PATH Resolution
 
 - Wrappers transform identity (name/path) into a finalized command using unified `Executable`:
   - `direct(path)`: set `Executable.path(path)`, prepend `options`, append call‑site args.
@@ -113,12 +113,12 @@ let pwd = sh.withExec(reference: .path("/bin/pwd"))
 print(try await pwd.run(args: []))
 ```
 
-## Out of Scope (v0.1)
+## Out of Scope (V0.1)
 
 - Streaming/PTY, interactive input, line‑by‑line coalescing.
 - Global registries, environment mutation, or policy.
 
-## Implementation Notes (source reference only)
+## Implementation Notes (Source Reference Only)
 
 - Use the existing CommonShell codebase as a reference to port minimal process‑running logic into `CommonProcess`/`CommonShell`. Do not depend on or re‑export CommonShell.
 - Implement the smallest surface required by current call sites (blocking run + buffered output). Extend incrementally for streaming/interactive later.

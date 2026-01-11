@@ -2,14 +2,14 @@
 
 Thanks for your interest in contributing!
 
-## Development setup
+## Development Setup
 
 - Swift toolchain: 6.1
 - Platforms: Linux (CI) and macOS (local).
 - Build: `swift build -c release`
 - Test: `swift test --parallel`
 
-## Coding guidelines
+## Coding Guidelines
 
 - Prefer explicit, long-form flags and option names.
 - No `Foundation.Process` at call sites; use CommonProcess/CommonShell runners.
@@ -22,13 +22,13 @@ Thanks for your interest in contributing!
 - Support: WrkstrmLog, WrkstrmFoundation, WrkstrmPerformance
 - Argument parsing: Apple Swift Argument Parser
 
-## Opening issues and PRs
+## Opening Issues and PRs
 
 - Include a concise summary and reproduction steps for bugs.
 - For features, describe the use case and acceptance criteria.
 - Keep PRs focused with clear rationale and tests where applicable.
 
-## License and conduct
+## License and Conduct
 
 By contributing, you agree that your contributions will be licensed under the
 MIT License (see `LICENSE`) and that you will abide by the `CODE_OF_CONDUCT.md`.

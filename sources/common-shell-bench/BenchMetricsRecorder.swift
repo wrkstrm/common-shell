@@ -78,7 +78,7 @@ final class BenchMetricsRecorder: ProcessMetricsRecorder, @unchecked Sendable {
   private static let metricDescriptorLookup: [String: MetricDescriptor] =
     Dictionary(uniqueKeysWithValues: metricDescriptorList.map { ($0.key, $0) })
 
-  static var metricDescriptors: [MetricDescriptor] { metricDescriptorList }
+  fileprivate static var metricDescriptors: [MetricDescriptor] { metricDescriptorList }
 
   private let queue = DispatchQueue(
     label: "wrkstrm.common-shell.bench.metrics",

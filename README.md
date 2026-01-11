@@ -1,4 +1,4 @@
-# CommonShell – process execution wrapper
+# CommonShell – Process Execution Wrapper
 
 | GitHub Actions | Status |
 | -------------- | ------ |
@@ -48,7 +48,7 @@ Instrumentation├──────────────────▶ │ 
 - Runners (`ProcessRunnerKind`) handle the actual execution surface (Subprocess/Foundation/TSCBasic/Native).
 - Instrumentation and metrics tag invocations automatically (host kind propagates via `ProcessLogOptions.tags`).
 
-## CommandSpec-first model
+## CommandSpec-first Model
 
 ```swift
 public struct CommandSpec: Codable, Sendable {
@@ -75,7 +75,7 @@ public struct CommandSpec: Codable, Sendable {
 - Built-in keys: `.noop`, `.metrics` (via `ProcessMetricsRecorder`).
 - `ProcessLogOptions.tags["executionHost"]` records the host label automatically.
 
-## Running commands
+## Running Commands
 
 ```swift
 var shell = CommonShell(executable: .name("git"))
@@ -97,7 +97,7 @@ Low-level entry point:
 
 - `run(host:executable:arguments:runnerKind:)` — explicitly supply the host transform and executable identity.
 
-## Route planning & benchmarking
+## Route Planning & Benchmarking
 
 - `ShellRouteKind` still enumerates runners (`.auto`, `.native`, `.subprocess(kind)`).
 - Bench helpers (`BenchRoutes`, `BenchSupport`) now operate over `(host: ExecutionHostKind, executable: Executable, arguments: [String]) × [ShellRouteKind]`.
