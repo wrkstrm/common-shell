@@ -16,7 +16,7 @@ import CommonShell
 let shell = CommonShell(executable: Executable.path("/usr/bin/env"))
 ```
 
-## One‑shot Runs With `Run(reference:)`
+## One‑shot Runs with `Run(reference:)`
 
 Run a PATH tool with extra flags:
 
@@ -48,7 +48,7 @@ let gitStatus = try await shell.run(
 )
 ```
 
-## Pre‑binding With `WithExec(reference:)`
+## Pre‑binding with `WithExec(reference:)`
 
 Create a shell pre‑bound to a tool by name (env) or path (direct) with optional
 default options/arguments.
@@ -131,7 +131,7 @@ swift run --package-path code/mono/apple/spm/universal/common/domain/system/comm
 
 See docs/reference/architecture/domains/common-shell-cli.md for the full rationale and guidance on choosing levels.
 
-### Type Safety And Autonomy
+### Type Safety and Autonomy
 
 - Strongly typed options (in CommonCLI and shared spec modules) constrain
   command surfaces so automated agents generate only valid invocations.

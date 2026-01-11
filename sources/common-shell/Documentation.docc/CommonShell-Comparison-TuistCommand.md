@@ -44,7 +44,7 @@ for try await e in events { /* .stdout/.stderr/.completed */  }
 let envOut = try await shell.runEnv(["PATH"])  // runs env PATH
 ```
 
-## When To Choose Which
+## When to Choose Which
 
 - Choose `CommonShell` when you need:
   - Typed, codable invocation for auditability.
