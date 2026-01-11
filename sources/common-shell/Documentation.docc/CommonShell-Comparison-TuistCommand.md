@@ -1,4 +1,4 @@
-# CLI Authors: CommonShell Vs Tuist Command
+# CLI Authors: CommonShell vs Tuist Command
 
 This guide helps CLI authors choose between using Tuist’s `Command` directly or
 wrapping process execution with `CommonShell` (built on `CommonProcess`).
