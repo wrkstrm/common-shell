@@ -19,7 +19,7 @@ Thanks for your interest in contributing!
 ## Dependencies
 
 - Core: CommonProcess (from 0.2.0)
-- Support: WrkstrmLog, WrkstrmFoundation, WrkstrmPerformance
+- Support: CommonLog, WrkstrmFoundation, WrkstrmPerformance
 - Argument parsing: Apple Swift Argument Parser
 
 ## Opening Issues and PRs

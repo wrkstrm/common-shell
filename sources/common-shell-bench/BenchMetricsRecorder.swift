@@ -1,6 +1,6 @@
 import CommonProcess
 import Foundation
-import WrkstrmLog
+import CommonLog
 
 struct PerformanceRow {
   let host: String

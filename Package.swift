@@ -20,7 +20,7 @@ var commonShellBenchDependencies: [Target.Dependency] = [
   "CommonShellBenchSupport",
   .product(name: "WrkstrmPerformance", package: perfPackageName),
   .product(name: "ArgumentParser", package: "swift-argument-parser"),
-  .product(name: "WrkstrmLog", package: "WrkstrmLog"),
+  .product(name: "CommonLog", package: "common-log"),
 ]
 // No Benchmark dependency; bench runs in reduced mode without extra metrics.
 
@@ -63,7 +63,7 @@ let package = Package(
       dependencies: [
         .product(name: "CommonProcess", package: processPackageName),
         .product(name: "CommonProcessExecutionKit", package: processPackageName),
-        .product(name: "WrkstrmLog", package: "WrkstrmLog"),
+        .product(name: "CommonLog", package: "common-log"),
       ],
       path: "sources/common-shell",
     ),
@@ -72,7 +72,7 @@ let package = Package(
       dependencies: [
         "CommonShell",
         .product(name: "CommonProcessExecutionKit", package: processPackageName),
-        .product(name: "WrkstrmLog", package: "WrkstrmLog"),
+        .product(name: "CommonLog", package: "common-log"),
         .product(name: "WrkstrmFoundation", package: "WrkstrmFoundation"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
@@ -84,7 +84,7 @@ let package = Package(
         "CommonShell",
         "CommonShellBenchSupport",
         .product(name: "CommonProcessExecutionKit", package: processPackageName),
-        .product(name: "WrkstrmLog", package: "WrkstrmLog"),
+        .product(name: "CommonLog", package: "common-log"),
       ],
       path: "tests/common-shell-tests",
     ),
@@ -150,14 +150,14 @@ extension Package {
     static var local: Inject = .init(dependencies: [
       // Prefer local mono paths with identities matching remote repo names
       .package(path: "../common-process"),
-      .package(name: "WrkstrmLog", path: "../../../../WrkstrmLog"),
+      .package(name: "common-log", path: "../../../../common/domain/system/common-log"),
       .package(path: "../../../../wrkstrm-performance"),
       .package(name: "WrkstrmFoundation", path: "../../../../WrkstrmFoundation"),
     ])
 
     static var remote: Inject = .init(dependencies: [
       .package(url: "https://github.com/wrkstrm/common-process.git", from: "0.3.0"),
-      .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "2.0.0"),
+      .package(url: "https://github.com/wrkstrm/common-log.git", from: "2.0.0"),
       .package(url: "https://github.com/wrkstrm/wrkstrm-performance.git", from: "0.1.0"),
       .package(url: "https://github.com/wrkstrm/WrkstrmFoundation.git", from: "3.0.0"),
     ])

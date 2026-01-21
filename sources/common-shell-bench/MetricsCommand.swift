@@ -4,7 +4,7 @@ import CommonProcessExecutionKit
 import CommonShell
 import CommonShellBenchSupport
 import Foundation
-import WrkstrmLog
+import CommonLog
 
 // MARK: - Metrics command (per-run statistics)
 

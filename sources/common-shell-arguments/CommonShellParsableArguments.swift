@@ -4,7 +4,7 @@ import CommonProcessExecutionKit
 import CommonShell
 import Foundation
 import WrkstrmFoundation
-import WrkstrmLog
+import CommonLog
 
 /// Protocol for types that expose common shell arguments
 public protocol CommonShellParsableArguments {

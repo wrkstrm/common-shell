@@ -125,7 +125,7 @@ MIT — see `LICENSE`.
 ## Dependencies
 
 - CommonProcess (>= 0.2.0)
-- WrkstrmLog/WrkstrmFoundation (>= 2.0.0)
+- CommonLog/WrkstrmFoundation (>= 2.0.0)
 - wrkstrm-performance (>= 0.1.0)
 
 ## CI

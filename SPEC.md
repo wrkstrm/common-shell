@@ -55,7 +55,7 @@
   - `willStart(command: String, arguments: [String], workingDirectory: String, runnerName: String, requestId: String, startUptimeNs: UInt64)`
 - `didFinish(command: String, arguments: [String], workingDirectory: String, runnerName: String, requestId: String, status: ProcessExitStatus, processIdentifier: String?, startUptimeNs: UInt64, endUptimeNs: UInt64, stdoutPreview: String?, stderrPreview: String?)`
 - CommonShell forwards to `CommandSpec.instrumentation` (injected from `instrumentationKey`) and includes monotonic timestamps.
-- Runners emit WrkstrmLog entries:
+- Runners emit CommonLog entries:
   - DEBUG: structured start block
   - INFO: one‑line summary (status, duration, cwd, cmd)
   - DEBUG (verbose): truncated output block according to log options caps

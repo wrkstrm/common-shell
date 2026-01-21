@@ -1,7 +1,7 @@
 import CommonProcess
 import CommonProcessExecutionKit
 import Foundation
-import WrkstrmLog
+import CommonLog
 
 extension CommonShell {
   /// Run using an explicit execution host and executable identity.

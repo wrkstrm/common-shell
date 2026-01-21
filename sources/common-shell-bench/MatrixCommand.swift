@@ -4,7 +4,7 @@ import CommonProcessExecutionKit
 import CommonShell
 import CommonShellBenchSupport
 import Foundation
-import WrkstrmLog
+import CommonLog
 
 // MARK: - Matrix command (legacy iteration-based benchmark)
 
