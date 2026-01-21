@@ -157,9 +157,9 @@ extension Package {
 
     static var remote: Inject = .init(dependencies: [
       .package(url: "https://github.com/wrkstrm/common-process.git", from: "0.3.0"),
-      .package(url: "https://github.com/wrkstrm/common-log.git", from: "2.0.0"),
+      .package(url: "https://github.com/wrkstrm/common-log.git", from: "4.0.0"),
       .package(url: "https://github.com/wrkstrm/wrkstrm-performance.git", from: "0.1.0"),
-      .package(url: "https://github.com/wrkstrm/WrkstrmFoundation.git", from: "3.0.0"),
+      .package(url: "https://github.com/wrkstrm/WrkstrmFoundation.git", from: "4.0.0"),
     ])
   }
 }
