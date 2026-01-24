@@ -152,7 +152,7 @@ extension Package {
       .package(path: "../common-process"),
       .package(name: "common-log", path: "../../../../common/domain/system/common-log"),
       .package(path: "../../../../wrkstrm-performance"),
-      .package(url: "https://github.com/wrkstrm/wrkstrm-foundation.git", from: "3.0.0"),
+      .package(path: "../../../../domain/system/wrkstrm-foundation"),
     ])
 
     static var remote: Inject = .init(dependencies: [
