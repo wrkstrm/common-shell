@@ -1,4 +1,4 @@
-// swift-tools-version: 6.1
+// swift-tools-version: 6.2
 import Foundation
 import PackageDescription
 
@@ -73,7 +73,7 @@ let package = Package(
         "CommonShell",
         .product(name: "CommonProcessExecutionKit", package: processPackageName),
         .product(name: "CommonLog", package: "common-log"),
-        .product(name: "WrkstrmFoundation", package: "WrkstrmFoundation"),
+        .product(name: "WrkstrmFoundation", package: "wrkstrm-foundation"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
       path: "sources/common-shell-arguments",
@@ -152,14 +152,14 @@ extension Package {
       .package(path: "../common-process"),
       .package(name: "common-log", path: "../../../../common/domain/system/common-log"),
       .package(path: "../../../../wrkstrm-performance"),
-      .package(name: "wrkstrm-foundation", path: "../../../../domain/system/wrkstrm-foundation"),
+      .package(url: "https://github.com/wrkstrm/wrkstrm-foundation.git", from: "3.0.0"),
     ])
 
     static var remote: Inject = .init(dependencies: [
       .package(url: "https://github.com/wrkstrm/common-process.git", from: "0.3.0"),
       .package(url: "https://github.com/wrkstrm/common-log.git", from: "3.0.0"),
       .package(url: "https://github.com/wrkstrm/wrkstrm-performance.git", from: "0.1.0"),
-      .package(url: "https://github.com/wrkstrm/WrkstrmFoundation.git", from: "3.0.0"),
+      .package(url: "https://github.com/wrkstrm/wrkstrm-foundation.git", from: "3.0.0"),
     ])
   }
 }
