@@ -27,7 +27,7 @@ var commonShellBenchDependencies: [Target.Dependency] = [
 let package = Package(
   name: "CommonShell",
   platforms: [
-    .macOS(.v14), .iOS(.v17), .macCatalyst(.v17),
+    .macOS(.v15), .iOS(.v17), .macCatalyst(.v17),
   ],
   products: [
     .library(name: "CommonShell", targets: ["CommonShell"]),
