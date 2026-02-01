@@ -150,8 +150,8 @@ extension Package {
     static var local: Inject = .init(dependencies: [
       // Prefer local mono paths with identities matching remote repo names
       .package(path: "../common-process"),
-      .package(name: "common-log", path: "../../../../common/domain/system/common-log"),
-      .package(path: "../../../../wrkstrm-performance"),
+      .package(name: "common-log", path: "../common-log"),
+      .package(path: "../../../../../../wrkstrm/spm/universal/domain/system/wrkstrm-performance"),
       .package(path: "../../../../../../wrkstrm/spm/universal/domain/system/wrkstrm-foundation"),
     ])
 
